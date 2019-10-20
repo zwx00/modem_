@@ -1,0 +1,293 @@
+{"frames": {
+
+"modemix25reptilianexponewinterface_0007_Josh-Hanton-The-Lord-of-The-Dance.png":
+{
+	"frame": {"x":1100,"y":0,"w":181,"h":223},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":181,"h":223},
+	"sourceSize": {"w":181,"h":223},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0008_disco.png":
+{
+	"frame": {"x":2139,"y":0,"w":232,"h":270},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":232,"h":270},
+	"sourceSize": {"w":232,"h":270},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0009_60338979_2321397168118445_8637680124226961408_n.png":
+{
+	"frame": {"x":2371,"y":0,"w":715,"h":273},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":715,"h":273},
+	"sourceSize": {"w":715,"h":273},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0010_15-Le-Diable-152x300.png":
+{
+	"frame": {"x":3320,"y":0,"w":185,"h":375},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":185,"h":375},
+	"sourceSize": {"w":185,"h":375},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0011_D_Q_NP_687321-MLM20765893853_062016-Q.png":
+{
+	"frame": {"x":1495,"y":0,"w":140,"h":246},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":246},
+	"sourceSize": {"w":140,"h":246},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0012_CRT_RADIOPOISON-1-1280x659-lyl.live.png":
+{
+	"frame": {"x":2122,"y":398,"w":1046,"h":498},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1046,"h":498},
+	"sourceSize": {"w":1046,"h":498},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0013_info-about-rep-shape5.png":
+{
+	"frame": {"x":542,"y":906,"w":929,"h":550},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":929,"h":550},
+	"sourceSize": {"w":929,"h":550},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0017_52977637_413871446016215_838145533326393344_n.png":
+{
+	"frame": {"x":1471,"y":906,"w":467,"h":552},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":467,"h":552},
+	"sourceSize": {"w":467,"h":552},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0018_xsmall.png":
+{
+	"frame": {"x":1281,"y":0,"w":214,"h":242},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":214,"h":242},
+	"sourceSize": {"w":214,"h":242},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0019_disfraz-reptiliano-adulto.png":
+{
+	"frame": {"x":1185,"y":1517,"w":727,"h":631},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":727,"h":631},
+	"sourceSize": {"w":727,"h":631},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0020_60691318_1271030343044780_1427906102833446912_n.png":
+{
+	"frame": {"x":3086,"y":0,"w":234,"h":323},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":234,"h":323},
+	"sourceSize": {"w":234,"h":323},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0021_disfraz-reptiliano-adulto-solo.png":
+{
+	"frame": {"x":958,"y":0,"w":142,"h":177},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":142,"h":177},
+	"sourceSize": {"w":142,"h":177},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0022_Gorn_arena.png":
+{
+	"frame": {"x":3168,"y":398,"w":547,"h":508},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":547,"h":508},
+	"sourceSize": {"w":547,"h":508},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0024_sezione-d-dell-acqua-pulita-dell-oceano-con-il-fondo-624125305.png":
+{
+	"frame": {"x":2673,"y":2547,"w":923,"h":1367},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":923,"h":1367},
+	"sourceSize": {"w":923,"h":1367},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0025_d_hxWqxE40cDA5hETXm0cT1CYdk_ca6cmgRyLMCQ828.png":
+{
+	"frame": {"x":808,"y":398,"w":229,"h":401},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":401},
+	"sourceSize": {"w":229,"h":401},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0026_--anna-adami.png":
+{
+	"frame": {"x":1912,"y":1517,"w":616,"h":854},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":616,"h":854},
+	"sourceSize": {"w":616,"h":854},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0027_tumblr_ppketl5qEp1wiatbxo1_400.png":
+{
+	"frame": {"x":1635,"y":0,"w":504,"h":263},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":504,"h":263},
+	"sourceSize": {"w":504,"h":263},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0028_repexp.png":
+{
+	"frame": {"x":1380,"y":2547,"w":1293,"h":1103},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1293,"h":1103},
+	"sourceSize": {"w":1293,"h":1103},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0029_60344487_2211069875595113_5925591538762514432_n.png":
+{
+	"frame": {"x":2694,"y":906,"w":934,"h":611},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":934,"h":611},
+	"sourceSize": {"w":934,"h":611},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0030_Rectangle-1.png":
+{
+	"frame": {"x":0,"y":398,"w":808,"h":398},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":808,"h":398},
+	"sourceSize": {"w":808,"h":398},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0031_Azione2pastura.png":
+{
+	"frame": {"x":650,"y":0,"w":308,"h":175},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":308,"h":175},
+	"sourceSize": {"w":308,"h":175},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0032_tumblr_pn7d7bkzNa1wiatbxo1_250.png":
+{
+	"frame": {"x":0,"y":0,"w":650,"h":169},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":650,"h":169},
+	"sourceSize": {"w":650,"h":169},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0033_58600116_2178643242216959_5262558161465769984_n.png":
+{
+	"frame": {"x":0,"y":906,"w":542,"h":509},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":542,"h":509},
+	"sourceSize": {"w":542,"h":509},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0034_stagno1.png":
+{
+	"frame": {"x":1366,"y":398,"w":756,"h":446},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":756,"h":446},
+	"sourceSize": {"w":756,"h":446},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0035_Hue_Saturation-1.png":
+{
+	"frame": {"x":2528,"y":1517,"w":857,"h":1030},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":857,"h":1030},
+	"sourceSize": {"w":857,"h":1030},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0036_Group-3.png":
+{
+	"frame": {"x":3505,"y":0,"w":376,"h":398},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":376,"h":398},
+	"sourceSize": {"w":376,"h":398},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0037_Curves-1.png":
+{
+	"frame": {"x":648,"y":2547,"w":732,"h":1044},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":732,"h":1044},
+	"sourceSize": {"w":732,"h":1044},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0038_60593600_418307082287901_6794808643624632320_n.png":
+{
+	"frame": {"x":1037,"y":398,"w":329,"h":441},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":329,"h":441},
+	"sourceSize": {"w":329,"h":441},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0039_60345231_382520662350661_2594030500116955136_n.png":
+{
+	"frame": {"x":0,"y":2547,"w":648,"h":1042},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":648,"h":1042},
+	"sourceSize": {"w":648,"h":1042},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0040_tumblr_pdurw3QsAw1smdf43o2_500.png":
+{
+	"frame": {"x":0,"y":1517,"w":1185,"h":621},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1185,"h":621},
+	"sourceSize": {"w":1185,"h":621},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"modemix25reptilianexponewinterface_0041_60345443_878380292511703_950206027557502976_n.png":
+{
+	"frame": {"x":1938,"y":906,"w":756,"h":558},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":756,"h":558},
+	"sourceSize": {"w":756,"h":558},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"animations": {
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "reptilianexpo.png",
+	"format": "RGBA8888",
+	"size": {"w":3881,"h":3914},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6b5b64a6a2706be335edd05859f740cd:f08a8a0e6b42d3573fa1fa7af22982d2:66a8b0093895aa79fdfc7df23c90c579$"
+}
+}
