@@ -23,10 +23,11 @@ app.loader.add("assets/reptilianexpo.json").load((loader, resources) => {
   let sheet = loader.resources['assets/reptilianexpo.json'];
   Object.keys(sheet.textures).forEach((each) => {
     let texture = new PIXI.Sprite(sheet.textures[each]);
-    texture.width = texture.width % 200;
-    texture.height = texture.height % 200;
-    texture.x = 200;
-    texture.y = 200;
+    let ratio = (app.renderer.height / texture.height / 3) * Math.random () 
+    texture.width = texture.width * ratio;
+    texture.height = texture.height * ratio;
+    texture.x = Math.random() * app.renderer.width  ;
+    texture.y = Math.random() * app.renderer.height;
     app.stage.addChild(texture);
   });
 });

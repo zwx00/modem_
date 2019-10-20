@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 const constructTextEntry = (textContent) => {
   
   let text = new PIXI.Text(textContent, {
-    fontFamily: 'Monospace',
+    fontFamily: 'Arial',
     fontSize: 24,
     fill: 'black',
     align: 'left'
