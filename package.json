@@ -1,0 +1,17 @@
+{
+  "name": "modem_",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "https://github.com/wbkd/webpack-starter.git",
+  "author": "zwx00 <bblokar@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack.config.js"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  }
+}
