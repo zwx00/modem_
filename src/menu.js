@@ -15,14 +15,16 @@ const constructTextEntry = (textContent) => {
   textBG.height = text.height;
   
   text.interactive = true;
+  textBG.tint = 0xffff1a;
+
+
   text.mouseover = (mouseData) => {
-    textBG.alpha = 0.1;
+    textBG.tint = 0xffffff;
   };
   
   text.mouseout = (mouseData) => {
-    textBG.alpha = 1;
+    textBG.tint = 0xffff1a;
   };
-  
   const cage = new PIXI.Container();
   
   cage.addChild(textBG, text);

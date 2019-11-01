@@ -3,18 +3,22 @@ import * as Menu from './menu.js';
 
 PIXI.utils.sayHello();
 
-const app = new PIXI.Application();
-
+var app = new PIXI.Application({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  backgroundColor: 0xffffff
+});
 document.body.appendChild(app.view);
 
 /* config */
-app.renderer.backgroundColor = 0x061639;
+app.renderer.backgroundColor = 0x33FF3F;
+app.renderer.autoDensity = true;
 app.stage.sortableChildren = true;
 
 const menuContainer = Menu.constructMenu([
-  'my first entry',
-  'my second entry',
-  'my third entry'
+  'home',
+  'mix series',
+  'radio show',
 ]);
 
 menuContainer.zIndex = 1000;
@@ -30,7 +34,7 @@ app.loader.add("assets/reptilianexpo.json").load((loader, resources) => {
   Object.keys(sheet.textures).forEach((each) => {
     let texture = new PIXI.Sprite(sheet.textures[each]);
 
-    let ratio = (app.renderer.height / texture.height / 3) * Math.random();
+    let ratio = (app.renderer.height / texture.height / 3) * Math.random()
     texture.width = texture.width * ratio;
     texture.height = texture.height * ratio;
 
@@ -38,9 +42,9 @@ app.loader.add("assets/reptilianexpo.json").load((loader, resources) => {
     texture.y = Math.random() * app.renderer.height;
 
     spriteData[each] = {
-      xChange: Math.random() * randomDirection(),
-      yChange: Math.random() * randomDirection(),
-      rotationSpeed: Math.random() * 0.0005,
+      xChange: Math.random() * randomDirection() * 0.05,
+      yChange: Math.random() * randomDirection() * 0.05,
+      rotationSpeed: Math.random() * randomDirection() * 0.0001,
       sprite: texture
     };
 
