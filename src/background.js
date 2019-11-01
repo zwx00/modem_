@@ -1,7 +1,9 @@
 import * as PIXI from 'pixi.js';
 
 const renderBackground = ({ sheetName, surfaceWidth, surfaceHeight }) => {
-  const globalLoader = PIXI.Loader.shared;
+  const fileName = `assets/${sheetName}.json`;
+
+  const loader = PIXI.Loader.shared;
   const ticker = PIXI.Ticker.shared;
   
   const container = new PIXI.Container();
@@ -9,11 +11,11 @@ const renderBackground = ({ sheetName, surfaceWidth, surfaceHeight }) => {
   const randomDirection = () => {
     return Math.random() > 0.5 ? -1 : 1;
   };
-  
-  globalLoader.add(`assets/${sheetName}.json`).load((loader, resources) => {
+
+  const paintBackground = (sheet) => {
+
     let spriteData = new Object();
-  
-    let sheet = loader.resources[`assets/${sheetName}.json`];
+
     Object.keys(sheet.textures).forEach((each) => {
       let texture = new PIXI.Sprite(sheet.textures[each]);
   
@@ -21,8 +23,8 @@ const renderBackground = ({ sheetName, surfaceWidth, surfaceHeight }) => {
       texture.width = texture.width * ratio + 50;
       texture.height = texture.height * ratio + 50;
   
-      texture.x = Math.random() * surfaceWidth;
-      texture.y = Math.random() * surfaceHeight;
+      texture.x = Math.random() * surfaceWidth - texture.width / 2;
+      texture.y = Math.random() * surfaceHeight - texture.height / 2;
   
       spriteData[each] = {
         xChange: Math.random() * randomDirection() * 0.05,
@@ -56,7 +58,16 @@ const renderBackground = ({ sheetName, surfaceWidth, surfaceHeight }) => {
         spriteData[each].sprite.y += delta * spriteData[each].yChange;
       });
     });
-  });
+  };
+
+
+  if (loader.resources[fileName]) {
+    paintBackground(loader.resources[fileName]);
+  } else {
+    loader.add(fileName).load((_, resources) => {
+      paintBackground(resources[fileName]);
+    });
+  };
   
 
   return container;
