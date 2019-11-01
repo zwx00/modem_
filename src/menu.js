@@ -31,7 +31,7 @@ const constructTextEntry = (textContent) => {
     return cage;
 };
 
-const constructMenu = (nameArray) => {
+const renderMenu = (nameArray) => {
   const cage = new PIXI.Container();
 
   for (let i = 0; i < nameArray.length; i++) {
@@ -46,4 +46,4 @@ const constructMenu = (nameArray) => {
   return cage;
 };
 
-export { constructMenu };
+export { renderMenu };
