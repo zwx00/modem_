@@ -6,7 +6,7 @@ const readFolderSafe = (mix, path) => {
   if (fs.existsSync(path)) {
     return fs
       .readdirSync(path)
-      .filter(file => (file.endsWith(".png") || file.endsWith(".gif")))
+      .filter(file => (file.endsWith(".png") || file.endsWith(".gif") || file.endsWith(".jpg") || file.endsWith(".jpeg")))
       .sort()
       .reverse()
       .map((file, index) => {

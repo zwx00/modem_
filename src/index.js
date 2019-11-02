@@ -3,6 +3,17 @@ import axios from 'axios';
 
 import * as Menu from './menu.js';
 import * as Background from './background.js';
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+  }
+  return a;
+  
+}
 
 
 PIXI.utils.sayHello();
@@ -17,7 +28,7 @@ const app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 /* config */
-app.renderer.backgroundColor = 0x33ff3f;
+app.renderer.backgroundColor = 0xA9A9A9;
 app.stage.sortableChildren = true;
 
 const renderContainers = {
@@ -40,7 +51,7 @@ const renderPage = () => {
     fileNames = resp.data['mix12'];
 
     Background.renderBackground({
-       fileNames, 
+       fileNames: shuffle(fileNames),
        surfaceWidth: app.renderer.width,
        surfaceHeight: app.renderer.height,
     }).map( task => {
