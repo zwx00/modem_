@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import axios from 'axios';
+import gifFrames from 'gif-frames';
 
 const ticker = PIXI.Ticker.shared;
 
@@ -7,24 +8,44 @@ const randomDirection = () => {
   return Math.random() > 0.5 ? -1 : 1;
 };
 
+const getSprite = (resource) => {
+  return new Promise( (resolve, reject) => {
+
+    if (resource.name.endsWith(".png")) {
+      resolve(new PIXI.Sprite(resource.texture));
+    } else if (resource.name.endsWith(".gif")) {
+      gifFrames({ url: resource.url, frames: 'all', outputType: 'canvas' })
+        .then((frameData) => {
+          const textures = frameData.map((frame) => PIXI.Texture.from(frame.getImage()));
+          const sprite = new PIXI.AnimatedSprite(textures);
+          sprite.gotoAndPlay(0);
+          sprite.animationSpeed = 0.01;
+          resolve(sprite);
+        });
+    } else {
+      reject("Unknown filetype");
+    }
+  });
+};
+
 const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight }) => {
   
   let spriteData = new Object();
 
-  let texture = new PIXI.Sprite(resource.texture);
+  return getSprite(resource).then((sprite) => {
   
-  let ratio = (surfaceHeight / texture.height / 3) * Math.random();
-  texture.width = texture.width * ratio + 50;
-  texture.height = texture.height * ratio + 50;
+  let ratio = (surfaceHeight / sprite.height / 3) * Math.random();
+  sprite.width = sprite.width * ratio + 50;
+  sprite.height = sprite.height * ratio + 50;
 
-  texture.x = Math.random() * surfaceWidth - texture.width / 2;
-  texture.y = Math.random() * surfaceHeight - texture.height / 2;
+  sprite.x = Math.random() * surfaceWidth - sprite.width / 2;
+  sprite.y = Math.random() * surfaceHeight - sprite.height / 2;
 
   spriteData = {
     xChange: Math.random() * randomDirection() * 0.05,
     yChange: Math.random() * randomDirection() * 0.05,
     rotationSpeed: Math.random() * 0.0005,
-    sprite: texture
+    sprite: sprite
   };
   
   ticker.add((delta) => {
@@ -48,16 +69,31 @@ const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight })
     spriteData.sprite.y += delta * spriteData.yChange;
   });
 
-  return texture;
+    return sprite;
+  });
 };
 
+const paintAnimatedMovingSprite = ({ resource, surfaceWidth, surfaceHeight }) => {
+  return null;
+};
 
 const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
   return fileNames.map((file, index) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-       new PIXI.Loader().add(file).load((_, resources) => {
-         resolve(paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight }));
+        const isGif = file.endsWith('.gif');
+        const options = {
+          loadType: isGif ? PIXI.LoaderResource.LOAD_TYPE.XHR : PIXI.LoaderResource.LOAD_TYPE.DEFAULT,
+          xhrType: isGif ? PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER : PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER,
+          crossOrigin: ''
+        };
+
+        new PIXI.Loader()
+          .add(file, options)
+          .load((_, resources) => {
+            resolve(
+              paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight })
+            );
        });
       }, index * 250);
     });
