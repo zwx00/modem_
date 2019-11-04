@@ -48,7 +48,7 @@ const renderPage = () => {
   const backgroundContainer = new PIXI.Container();
 
   axios.get('assets/asset-data.json').then((resp) => {
-    fileNames = resp.data['mix12'];
+    fileNames = resp.data['mix21'];
 
     Background.renderBackground({
        fileNames: shuffle(fileNames),
