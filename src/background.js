@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
-import axios from 'axios';
 import gifFrames from 'gif-frames';
+import Utils from './utils';
 
 const ticker = PIXI.Ticker.shared;
 
@@ -9,26 +9,24 @@ const randomDirection = () => {
 };
 
 const getSprite = (resource) => {
-  return new Promise((resolve, reject) => {
-    if (resource.name.endsWith('.png') || resource.name.endsWith('.jpg') || resource.name.endsWith('.jpeg')) {
-      resolve(new PIXI.Sprite(resource.texture));
-    } else if (resource.name.endsWith('.gif')) {
-      gifFrames({ url: resource.url, frames: 'all', outputType: 'canvas' })
-        .then((frameData) => {
-          const textures = frameData.map((frame) => PIXI.Texture.from(frame.getImage()));
-          const sprite = new PIXI.AnimatedSprite(textures);
-          sprite.gotoAndPlay(0);
-          sprite.animationSpeed = 0.1;
-          resolve(sprite);
-        });
-    } else {
-      reject('Unknown filetype');
-    }
-  });
+  if (resource.name.endsWith('.png') || resource.name.endsWith('.jpg') || resource.name.endsWith('.jpeg')) {
+    return new Promise((resolve) => resolve(new PIXI.Sprite(resource.texture)));
+  } else if (resource.name.endsWith('.gif')) {
+    return gifFrames({ url: resource.url, frames: 'all', outputType: 'canvas' })
+      .then((frameData) => {
+        const textures = frameData.map((frame) => PIXI.Texture.from(frame.getImage()));
+        const sprite = new PIXI.AnimatedSprite(textures);
+        sprite.gotoAndPlay(0);
+        sprite.animationSpeed = 0.1;
+        return sprite;
+      });
+  } else {
+    throw new Error('Unknown filetype');
+  }
 };
 
 const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight }) => {
-  let spriteData = new Object();
+  let spriteData = {};
 
   return getSprite(resource).then((sprite) => {
     const ratio = (surfaceHeight / sprite.height / 3) * Math.random();
@@ -70,14 +68,10 @@ const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight })
   });
 };
 
-const paintAnimatedMovingSprite = ({ resource, surfaceWidth, surfaceHeight }) => {
-  return null;
-};
-
 const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
   return fileNames.map((file, index) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
+    return Utils.sleep(2000 * index)
+      .then(() => {
         const isGif = file.endsWith('.gif');
         const options = {
           loadType: isGif ? PIXI.LoaderResource.LOAD_TYPE.XHR : PIXI.LoaderResource.LOAD_TYPE.DEFAULT,
@@ -85,15 +79,15 @@ const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
           crossOrigin: ''
         };
 
-        new PIXI.Loader()
-          .add(file, options)
-          .load((_, resources) => {
-            resolve(
-              paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight })
+        const newLoader = new PIXI.Loader();
+        return new Promise(resolve => {
+          newLoader
+            .add(file, options)
+            .load((_, resources) =>
+              resolve(paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight }))
             );
-          });
-      }, index * 2000);
-    });
+        });
+      });
   });
 };
 

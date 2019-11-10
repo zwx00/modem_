@@ -54,6 +54,7 @@ const renderPage = () => {
       surfaceHeight: app.renderer.height
     }).map(task => {
       task.then(element => {
+        console.log(element.constructor.name);
         backgroundContainer.addChild(element);
       });
     });
