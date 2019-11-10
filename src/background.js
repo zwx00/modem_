@@ -1,34 +1,37 @@
 import * as PIXI from 'pixi.js';
-import gifFrames from 'gif-frames';
 import Utils from './utils';
-
 const ticker = PIXI.Ticker.shared;
 
 const randomDirection = () => {
   return Math.random() > 0.5 ? -1 : 1;
 };
 
-const getSprite = (resource) => {
-  if (resource.name.endsWith('.png') || resource.name.endsWith('.jpg') || resource.name.endsWith('.jpeg')) {
-    return new Promise((resolve) => resolve(new PIXI.Sprite(resource.texture)));
-  } else if (resource.name.endsWith('.gif')) {
-    return gifFrames({ url: resource.url, frames: 'all', outputType: 'canvas' })
-      .then((frameData) => {
-        const textures = frameData.map((frame) => PIXI.Texture.from(frame.getImage()));
-        const sprite = new PIXI.AnimatedSprite(textures);
-        sprite.gotoAndPlay(0);
-        sprite.animationSpeed = 0.1;
-        return sprite;
-      });
-  } else {
-    throw new Error('Unknown filetype');
-  }
+const getSprite = (resource, meta) => {
+  return new Promise((resolve, reject) => {
+    if (meta.type === 'static') {
+      resolve(new PIXI.Sprite(resource.texture));
+    } else if (meta.type === 'animation') {
+      const textures = [];
+      for (let i = 0; i < meta.frames; i++) {
+        textures.push(new PIXI.Texture(resource.texture, new PIXI.Rectangle(
+          i * meta.offset, 0, meta.offset, resource.texture.height
+        )));
+      }
+
+      const sprite = new PIXI.AnimatedSprite(textures);
+      sprite.gotoAndPlay(0);
+      sprite.animationSpeed = 0.1;
+      resolve(sprite);
+    } else {
+      reject(new Error('Unknown filetype'));
+    }
+  });
 };
 
-const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight }) => {
+const paintMovingSprite = ({ meta, resource, container, surfaceWidth, surfaceHeight }) => {
   let spriteData = {};
-
-  return getSprite(resource).then((sprite) => {
+  console.log(resource);
+  return getSprite(resource, meta).then((sprite) => {
     const ratio = (surfaceHeight / sprite.height / 3) * Math.random();
     sprite.width = sprite.width * ratio + 50;
     sprite.height = sprite.height * ratio + 50;
@@ -69,22 +72,16 @@ const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight })
 };
 
 const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
-  return fileNames.map((file, index) => {
+  console.log(fileNames);
+  return fileNames.map((object, index) => {
     return Utils.sleep(2000 * index)
       .then(() => {
-        const isGif = file.endsWith('.gif');
-        const options = {
-          loadType: isGif ? PIXI.LoaderResource.LOAD_TYPE.XHR : PIXI.LoaderResource.LOAD_TYPE.DEFAULT,
-          xhrType: isGif ? PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER : PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER,
-          crossOrigin: ''
-        };
 
-        const newLoader = new PIXI.Loader();
         return new Promise(resolve => {
-          newLoader
-            .add(file, options)
+          new PIXI.Loader()
+            .add(object.filename)
             .load((_, resources) =>
-              resolve(paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight }))
+              resolve(paintMovingSprite({ meta: object, resource: resources[object.filename], surfaceWidth, surfaceHeight }))
             );
         });
       });
