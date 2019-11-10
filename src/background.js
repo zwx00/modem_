@@ -9,11 +9,10 @@ const randomDirection = () => {
 };
 
 const getSprite = (resource) => {
-  return new Promise( (resolve, reject) => {
-
-    if (resource.name.endsWith(".png") || resource.name.endsWith(".jpg") || resource.name.endsWith(".jpeg")) {
+  return new Promise((resolve, reject) => {
+    if (resource.name.endsWith('.png') || resource.name.endsWith('.jpg') || resource.name.endsWith('.jpeg')) {
       resolve(new PIXI.Sprite(resource.texture));
-    } else if (resource.name.endsWith(".gif")) {
+    } else if (resource.name.endsWith('.gif')) {
       gifFrames({ url: resource.url, frames: 'all', outputType: 'canvas' })
         .then((frameData) => {
           const textures = frameData.map((frame) => PIXI.Texture.from(frame.getImage()));
@@ -23,51 +22,49 @@ const getSprite = (resource) => {
           resolve(sprite);
         });
     } else {
-      reject("Unknown filetype");
+      reject('Unknown filetype');
     }
   });
 };
 
 const paintMovingSprite = ({ resource, container, surfaceWidth, surfaceHeight }) => {
-  
   let spriteData = new Object();
 
   return getSprite(resource).then((sprite) => {
-  
-  let ratio = (surfaceHeight / sprite.height / 3) * Math.random();
-  sprite.width = sprite.width * ratio + 50;
-  sprite.height = sprite.height * ratio + 50;
+    const ratio = (surfaceHeight / sprite.height / 3) * Math.random();
+    sprite.width = sprite.width * ratio + 50;
+    sprite.height = sprite.height * ratio + 50;
 
-  sprite.x = Math.random() * surfaceWidth - sprite.width / 2;
-  sprite.y = Math.random() * surfaceHeight - sprite.height / 2;
+    sprite.x = Math.random() * surfaceWidth - sprite.width / 2;
+    sprite.y = Math.random() * surfaceHeight - sprite.height / 2;
 
-  spriteData = {
-    xChange: Math.random() * randomDirection() * 0.05,
-    yChange: Math.random() * randomDirection() * 0.05,
-    rotationSpeed: Math.random() * 0.0002,
-    sprite: sprite
-  };
-  
-  ticker.add((delta) => {
-    spriteData.sprite.rotation += delta * spriteData.rotationSpeed;
-  
-    if (spriteData.sprite.x + delta * spriteData.xChange > surfaceWidth) {
-      spriteData.xChange = -1 * spriteData.xChange;
-    }
-    if (spriteData.sprite.y + delta * spriteData.xChange > surfaceHeight) {
-      spriteData.yChange = -1 * spriteData.yChange;
-    }
-  
-    if (spriteData.sprite.x + delta * spriteData.xChange < 0) {
-      spriteData.xChange = -1 * spriteData.xChange;
-    }
-    if (spriteData.sprite.y + delta * spriteData.xChange < 0) {
+    spriteData = {
+      xChange: Math.random() * randomDirection() * 0.05,
+      yChange: Math.random() * randomDirection() * 0.05,
+      rotationSpeed: Math.random() * 0.0002,
+      sprite: sprite
+    };
+
+    ticker.add((delta) => {
+      spriteData.sprite.rotation += delta * spriteData.rotationSpeed;
+
+      if (spriteData.sprite.x + delta * spriteData.xChange > surfaceWidth) {
+        spriteData.xChange = -1 * spriteData.xChange;
+      }
+      if (spriteData.sprite.y + delta * spriteData.xChange > surfaceHeight) {
         spriteData.yChange = -1 * spriteData.yChange;
-    }
-  
-    spriteData.sprite.x += delta * spriteData.xChange;
-    spriteData.sprite.y += delta * spriteData.yChange;
-  });
+      }
+
+      if (spriteData.sprite.x + delta * spriteData.xChange < 0) {
+        spriteData.xChange = -1 * spriteData.xChange;
+      }
+      if (spriteData.sprite.y + delta * spriteData.xChange < 0) {
+        spriteData.yChange = -1 * spriteData.yChange;
+      }
+
+      spriteData.sprite.x += delta * spriteData.xChange;
+      spriteData.sprite.y += delta * spriteData.yChange;
+    });
 
     return sprite;
   });
@@ -94,7 +91,7 @@ const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
             resolve(
               paintMovingSprite({ resource: resources[file], surfaceWidth, surfaceHeight })
             );
-       });
+          });
       }, index * 2000);
     });
   });
