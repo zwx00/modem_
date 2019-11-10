@@ -1,46 +1,82 @@
 /* globals require, console */
 const fs = require('fs');
-const _ = require('lodash');
+const { convertGif } = require('./convert_gifs.js');
 
 const readFolderSafe = (mix, path) => {
   if (fs.existsSync(path)) {
-    return fs
+    return Promise.all(fs
       .readdirSync(path)
       .filter(file => (file.endsWith('.png') || file.endsWith('.gif') || file.endsWith('.jpg') || file.endsWith('.jpeg')))
       .sort()
       .reverse()
       .map((file, index) => {
-        return `assets/${mix}/${file}`;
-      });
+        if (file.endsWith('.gif')) {
+          return convertGif(`${path}/${file}`)
+            .then((meta) => {
+              console.log(meta);
+
+              if (!meta) {
+                console.log('its problems');
+              }
+              return {
+                ...meta,
+                filename: `assets/${mix}/${file.replace('gif', 'spritesheet.png')}`,
+                type: 'animation'
+              };
+            })
+            .catch((err) => {
+              console.log(`no go: ${err}`);
+            });
+        } else {
+          return new Promise(
+            (resolve) => {
+              resolve(
+                {
+                  filename: `assets/${mix}/${file}`,
+                  type: 'static'
+                });
+            });
+        }
+      }));
   } else {
     return [];
   }
 };
 
 const getMixFiles = () => {
-  const files = fs
+  const folders = fs
     .readdirSync('src/assets')
-    .filter(folder => folder.startsWith('mix'))
-    .map(folder => ({
-      [folder]: readFolderSafe(
-        folder,
-        'src/assets/' + folder
-      )
-    }))
-    .reduce((acc, x) => {
-      return _.merge(acc, x);
-    }, {})
-  ;
+    .filter(folder => folder.startsWith('mix11'));
 
-  return files;
+  const promises = folders.map(folder => readFolderSafe(
+    folder,
+    'src/assets/' + folder
+  ));
+
+  return Promise.all(promises).then(files => {
+    return folders.map((folder, index) => {
+      return {
+        [folder]: files[index].reduce((acc, x) => {
+          if (x) {
+            return [...acc, x];
+          } else {
+            return acc;
+          }
+        }, [])
+      };
+    });
+  });
 };
 
-fs.writeFile(
-  'src/assets/asset-data.json',
-  JSON.stringify(getMixFiles(), null, 2),
-  err => {
-    if (err) {
-      console.log(err);
+getMixFiles().then(files => {
+  console.log(files);
+  fs.writeFile(
+    'src/assets/asset-data.json',
+    JSON.stringify(files, null, 2),
+    err => {
+      if (err) {
+        console.log(err);
+      }
     }
-  }
-);
+  );
+});
