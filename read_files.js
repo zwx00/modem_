@@ -46,14 +46,17 @@ const readFolderSafe = (mix, path) => {
 const getMixFiles = () => {
   const folders = fs
     .readdirSync('src/assets')
-    .filter(folder => folder.startsWith('mix11'));
+    .filter(folder => folder.startsWith('mix'));
+
+  console.log(folders);
 
   const promises = folders.map(folder => readFolderSafe(
     folder,
     'src/assets/' + folder
   ));
-
+    
   return Promise.all(promises).then(files => {
+    console.log(files);
     return folders.map((folder, index) => {
       return {
         [folder]: files[index].reduce((acc, x) => {
@@ -69,6 +72,7 @@ const getMixFiles = () => {
 };
 
 getMixFiles().then(files => {
+  console.log(files);
   console.log(files);
   fs.writeFile(
     'src/assets/asset-data.json',
