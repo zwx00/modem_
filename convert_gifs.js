@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const convertGif = path => {
   return new Promise((resolve, reject) => {
-    const outName = path.replace('gif', 'spritesheet.png');
+    const outName = path.replace('.gif', '.spritesheet.png');
     GifUtil.read(`${path}`).then(gif => {
       if (fs.existsSync(outName)) {
         console.log(`${outName} already exists, skipping conversion`);
@@ -28,12 +28,14 @@ const convertGif = path => {
           console.log(err);
           return;
         }
-
         Promise.all(gif.frames.map((frame, index) => {
-          console.log(`doing ${index} frame of ${gif.frames.length}`);
-          console.log(index * gif.width);
-          return image.blit(GifUtil.copyAsJimp(Jimp, frame), index * gif.width, 0);
+          if (frame.disposalMethod === 1 && index > 0) {
+            image.blit(GifUtil.copyAsJimp(Jimp, gif.frames[0]), index * gif.width, 0);
+          }
+          image.blit(GifUtil.copyAsJimp(Jimp, frame), index * gif.width + frame.xOffset, frame.yOffset);
         })).then(() => {
+          console.log(outName);
+          console.log('gonna write');
           image.write(outName);
           resolve({
             frames: gif.frames.length,
