@@ -15,7 +15,7 @@ const convertGif = path => {
         return;
       }
 
-      if (gif.frames.length > 20) {
+      if (gif.frames.length > 60) {
         console.log(`${path} not ok -> too many frames (${gif.frames.length})`);
         reject(new Error('too many frames'));
         return;

@@ -27,7 +27,7 @@ const readFolderSafe = (mix, path) => {
             .catch((err) => {
               console.log(`no go: ${err}`);
             });
-        } else {
+        } else if (!file.endsWith('spritesheet.png')) {
           return new Promise(
             (resolve) => {
               resolve(
