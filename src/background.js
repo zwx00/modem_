@@ -71,9 +71,6 @@ const paintMovingSprite = ({ meta, resource, container, surfaceWidth, surfaceHei
 };
 
 const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
-  console.log(fileNames);
-  console.log('we are here');
-  debugger;
   return fileNames.map((object, index) => {
     return Utils.sleep(2000 * index)
       .then(() => {

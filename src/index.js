@@ -47,7 +47,15 @@ const renderPage = () => {
 
   axios.get('assets/asset-data.json').then((resp) => {
     console.log(resp);
-    fileNames = resp.data.mix11;
+    let mixName = window.location.hash.replace('#', '');
+    console.log(mixName);
+    if (mixName === '') {
+      mixName = 'mix01';
+    }
+    console.log(Object.keys(resp.data));
+    console.log(Object.keys(resp.data).includes(mixName));
+    fileNames = resp.data[mixName];
+    console.log("filenames are:");
     console.log(fileNames);
 
     Background.renderBackground({
