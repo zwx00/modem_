@@ -54,20 +54,23 @@ const getMixFiles = () => {
     folder,
     'src/assets/' + folder
   ));
-    
+
   return Promise.all(promises).then(files => {
-    console.log(files);
-    return folders.map((folder, index) => {
-      return {
-        [folder]: files[index].reduce((acc, x) => {
-          if (x) {
-            return [...acc, x];
-          } else {
-            return acc;
-          }
-        }, [])
-      };
-    });
+    debugger;
+    const foldersObj = folders
+      .map((folder, index) => ({
+        [folder]: files[index]
+      }))
+      .reduce((acc, x) => ({
+        ...acc, ...x
+      }));
+
+    const out = {}
+    for (const [key, val] of Object.entries(foldersObj)) {
+      out[key] = val.filter(x => x)
+    }
+
+    return out;
   });
 };
 

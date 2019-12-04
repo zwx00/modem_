@@ -30,7 +30,6 @@ const getSprite = (resource, meta) => {
 
 const paintMovingSprite = ({ meta, resource, container, surfaceWidth, surfaceHeight }) => {
   let spriteData = {};
-  console.log(resource);
   return getSprite(resource, meta).then((sprite) => {
     const ratio = (surfaceHeight / sprite.height / 3) * Math.random();
     sprite.width = sprite.width * ratio + 50;
@@ -73,10 +72,13 @@ const paintMovingSprite = ({ meta, resource, container, surfaceWidth, surfaceHei
 
 const renderBackground = ({ fileNames, surfaceWidth, surfaceHeight }) => {
   console.log(fileNames);
+  console.log('we are here');
+  debugger;
   return fileNames.map((object, index) => {
     return Utils.sleep(2000 * index)
       .then(() => {
-
+        console.log(object);
+        console.log(index);
         return new Promise(resolve => {
           new PIXI.Loader()
             .add(object.filename)
