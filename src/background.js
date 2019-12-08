@@ -31,7 +31,7 @@ const getSprite = (resource, meta) => {
 const paintMovingSprite = ({ meta, resource, container, surfaceWidth, surfaceHeight }) => {
   let spriteData = {};
   return getSprite(resource, meta).then((sprite) => {
-    const ratio = (surfaceHeight / sprite.height / 5 ) * Math.random();
+    const ratio = (surfaceHeight / sprite.height / 5) * Math.random();
     sprite.width = sprite.width * ratio + 50;
     sprite.height = sprite.height * ratio + 50;
 

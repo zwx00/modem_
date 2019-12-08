@@ -3,6 +3,10 @@ import axios from 'axios';
 
 import * as Menu from './menu.js';
 import * as Background from './background.js';
+
+
+import * as MixCodeFactory from './mix.js';
+
 function shuffle (a) {
   var j, x, i;
   for (i = a.length - 1; i > 0; i--) {
@@ -46,17 +50,15 @@ const renderPage = () => {
   const backgroundContainer = new PIXI.Container();
 
   axios.get('assets/asset-data.json').then((resp) => {
-    console.log(resp);
     let mixName = window.location.hash.replace('#', '');
-    console.log(mixName);
     if (mixName === '') {
       mixName = 'mix01';
     }
-    console.log(Object.keys(resp.data));
-    console.log(Object.keys(resp.data).includes(mixName));
+
+    const code = MixCodeFactory.getMixCode(mixName);
+    code.sayHi();
+
     fileNames = resp.data[mixName];
-    console.log("filenames are:");
-    console.log(fileNames);
 
     Background.renderBackground({
       fileNames: shuffle(fileNames),
