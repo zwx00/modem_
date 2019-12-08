@@ -2,20 +2,8 @@ import * as PIXI from 'pixi.js';
 import axios from 'axios';
 
 import * as Menu from './menu.js';
-import * as Background from './background.js';
 
 import * as MixCodeFactory from './mix.js';
-
-function shuffle (a) {
-  var j, x, i;
-  for (i = a.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = a[i];
-    a[i] = a[j];
-    a[j] = x;
-  }
-  return a;
-}
 
 PIXI.utils.sayHello();
 
@@ -37,8 +25,6 @@ const renderContainers = {
   background: null
 };
 
-let fileNames = null;
-
 const renderPage = () => {
   renderContainers.menu = Menu.renderMenu([
     'home',
@@ -49,29 +35,25 @@ const renderPage = () => {
   const backgroundContainer = new PIXI.Container();
 
   axios.get('assets/asset-data.json').then((resp) => {
+    /* routing ... */
+
     let mixName = window.location.hash.replace('#', '');
     if (mixName === '') {
       mixName = 'mix01';
     }
-    
-    const fileManifest = resp.data;
 
-    const pageRenderer = MixCodeFactory.getMixCode(mixName);
-    pageRenderer.sayHi();
-    
-    //const layers = pageRenderer.getLayers();
-    //
-    //for (const layerRenderer of layers) {
-    //    
-    //}
+    /* rendering ... */
+    const PageRenderer = MixCodeFactory.getMixCode(mixName);
 
-    const fileNames = resp.data[mixName];
-    Background.renderBackground({
-      container: backgroundContainer,
-      fileNames: shuffle(fileNames),
-      surfaceWidth: app.renderer.width,
-      surfaceHeight: app.renderer.height
-    });
+    PageRenderer.sayHi();
+
+    const layers = PageRenderer.getLayers();
+
+    for (const layer of layers) {
+      const container = new PIXI.Container();
+      layer.renderer(resp.data[mixName], container);
+      app.stage.addChild(container);
+    }
   });
 
   app.stage.addChild(backgroundContainer);
@@ -80,14 +62,4 @@ const renderPage = () => {
   app.stage.addChild(renderContainers.menu);
 };
 
-// const resizePage = () => {
-//   renderContainers.menu.destroy();
-//   renderContainers.background.destroy();
-//
-//   app.renderer.resize(window.innerWidth, window.innerHeight);
-//   renderPage();
-// };
-//
-// window.addEventListener('resize', resizePage);
-//
 renderPage();

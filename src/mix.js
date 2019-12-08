@@ -1,3 +1,5 @@
+import { backgroundLayerRenderer } from './background.js';
+
 const getMixImports = () => {
   return require.context('babel-loader!./assets', true, /_mix.js/);
 };
@@ -5,6 +7,14 @@ const getMixImports = () => {
 const getMixCode = (mix) => {
   const imports = getMixImports();
   const mixAbstraction = {
+    getLayers () {
+      return [
+        {
+          name: 'background',
+          renderer: getLayerRenderer(mix, 'background')
+        }
+      ];
+    },
     sayHi () {
       console.log('%c hi', 'background: #222; color: #bada55');
     }
@@ -18,7 +28,10 @@ const getMixCode = (mix) => {
   return mixAbstraction;
 };
 
-const getLayerCode = (mix, layer) => {
+const getLayerRenderer = (mix, layer) => {
+  if (layer === 'background') {
+    return backgroundLayerRenderer;
+  }
 //  return import(`assets/${mix}/${layer}/_code.js`).catch((err) => {
 //    return {
 //      sayHi () {
@@ -29,6 +42,5 @@ const getLayerCode = (mix, layer) => {
 };
 
 export {
-  getMixCode,
-  getLayerCode
+  getMixCode
 };

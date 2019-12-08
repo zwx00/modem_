@@ -1,8 +1,7 @@
-import * as PIXI from 'pixi.js';
 import Utils from './utils';
-const ticker = PIXI.Ticker.shared;
+import Framework from './framework';
 
-class SpritePainter {
+class MovingSpritePainter {
   constructor (sprite) {
     this.surfaceWidth = window.innerWidth;
     this.surfaceHeight = window.innerHeight;
@@ -46,28 +45,13 @@ class SpritePainter {
   }
 }
 
-const paintMovingSprite = ({ meta, resource }) => {
-  const sprite = Utils.getSprite(resource, meta);
-
-  const currentSpritePainter = new SpritePainter(sprite);
-
-  ticker.add(currentSpritePainter.updateSprite.bind(currentSpritePainter));
-
-  return currentSpritePainter.sprite;
-};
-
-const renderBackground = ({ container, fileNames }) => {
-  return fileNames.map((object, index) => {
+const backgroundLayerRenderer = (fileNames, container) => {
+  Utils.shuffle(fileNames).forEach((object, index) => {
     Utils.sleep(2000 * index)
       .then(() => {
-        new PIXI.Loader()
-          .add(object.filename)
-          .load((_, resources) => {
-            const sprite = paintMovingSprite({ meta: object, resource: resources[object.filename] });
-            container.addChild(sprite);
-          });
+        Framework.paintSprite(object, MovingSpritePainter, container);
       });
   });
 };
 
-export { renderBackground };
+export { backgroundLayerRenderer };
