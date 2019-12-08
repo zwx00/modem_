@@ -53,13 +53,17 @@ const readFolderSafe = async (mix, path) => {
     if (files.includes(spriteSheetName)) {
       return undefined; // will be handled as spritesheet
     }
-
-    const meta = await convertGif(`${path}/${file}`);
-    return {
-      ...meta,
-      filename: `assets/${mix}/${spriteSheetName}`,
-      type: 'animation'
-    };
+    try {
+      const meta = await convertGif(`${path}/${file}`);
+      return {
+        ...meta,
+        filename: `assets/${mix}/${spriteSheetName}`,
+        type: 'animation'
+      };
+    } catch (e) {
+      console.log(chalk.red(`couldn't convert ${file}`));
+      return undefined;
+    }
   }).filter(x => x);
 
   const processedStatics = statics.map(file => ({
@@ -82,7 +86,7 @@ const getMixFiles = async () => {
       'src/assets/' + folder
     ));
 
-  const foldersObj = folders
+  const foldersObj = transformedFolders
     .map((folder, index) => ({
       [folder]: files[index]
     }))
@@ -92,8 +96,7 @@ const getMixFiles = async () => {
 
   const out = {};
   for (const [key, val] of Object.entries(foldersObj)) {
-    console.log(chalk.blue(key) + chalk.red(val));
-    out[key] = val.filter(x => x);
+    out[key] = val;
   }
 
   return out;
