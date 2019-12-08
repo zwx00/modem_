@@ -1,89 +1,113 @@
 /* globals require, console */
-const fs = require('fs');
+const fs = require('fs').promises;
+const chalk = require('chalk');
 const { convertGif } = require('./convert_gifs.js');
+const Promise = require('bluebird');
 
-const readFolderSafe = (mix, path) => {
-  if (fs.existsSync(path)) {
-    return Promise.all(fs
-      .readdirSync(path)
-      .filter(file => (file.endsWith('.png') || file.endsWith('.gif') || file.endsWith('.jpg') || file.endsWith('.jpeg')))
-      .sort()
-      .reverse()
-      .map((file, index) => {
-        if (file.endsWith('.gif')) {
-          return convertGif(`${path}/${file}`)
-            .then((meta) => {
-              console.log(meta);
+const ASSET_DATA = 'src/assets/asset-data.json';
 
-              if (!meta) {
-                console.log('its problems');
-              }
-              return {
-                ...meta,
-                filename: `assets/${mix}/${file.replace('gif', 'spritesheet.png')}`,
-                type: 'animation'
-              };
-            })
-            .catch((err) => {
-              console.log(`no go: ${err}`);
-            });
-        } else if (!file.endsWith('spritesheet.png')) {
-          return new Promise(
-            (resolve) => {
-              resolve(
-                {
-                  filename: `assets/${mix}/${file}`,
-                  type: 'static'
-                });
-            });
-        }
-      }));
-  } else {
+const readFolderSafe = async (mix, path) => {
+  try {
+    await fs.access(path);
+  } catch (e) {
+    console.log(chalk.red(':: WARNING could not access folder'));
+
     return [];
   }
-};
+  const files = await fs.readdir(path);
+  const transformedFiles = files.sort().reverse();
 
-const getMixFiles = () => {
-  const folders = fs
-    .readdirSync('src/assets')
-    .filter(folder => folder.startsWith('mix'));
-
-  console.log(folders);
-
-  const promises = folders.map(folder => readFolderSafe(
-    folder,
-    'src/assets/' + folder
+  const gifs = transformedFiles.filter(file => (
+    file.endsWith('.gif')
   ));
 
-  return Promise.all(promises).then(files => {
-    debugger;
-    const foldersObj = folders
-      .map((folder, index) => ({
-        [folder]: files[index]
-      }))
-      .reduce((acc, x) => ({
-        ...acc, ...x
-      }));
+  const statics = transformedFiles.filter(file => (
+    (
+      file.endsWith('.png') && !file.endsWith('.spritesheet.png')
+    ) ||
+    file.endsWith('.jpg') ||
+    file.endsWith('.jpeg')
+  ));
 
-    const out = {}
-    for (const [key, val] of Object.entries(foldersObj)) {
-      out[key] = val.filter(x => x)
+  const spriteSheets = transformedFiles.filter(file => (
+    file.endsWith('.spritesheet.png')
+  ));
+
+  const cachedFiles = await fs.readFile(ASSET_DATA);
+  const parsedCachedFiles = JSON.parse(cachedFiles);
+  const processedSpriteSheets = spriteSheets.map(file => {
+    const cachedMetadata = parsedCachedFiles[mix].find(meta => (meta.filename.endsWith(file)));
+
+    if (!cachedMetadata) {
+      console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
+      console.log(chalk.red('Delete this spritesheet and run again'));
+      return null;
+    } else {
+      return cachedMetadata;
+    }
+  }).filter(x => x); // drop problematic spritesheets
+
+  const processedGifs = await Promise.map(gifs, async (file) => {
+    const spriteSheetName = file.replace('gif', 'spritesheet.png');
+
+    if (files.includes(spriteSheetName)) {
+      return undefined; // will be handled as spritesheet
     }
 
-    return out;
-  });
+    const meta = await convertGif(`${path}/${file}`);
+    return {
+      ...meta,
+      filename: `assets/${mix}/${spriteSheetName}`,
+      type: 'animation'
+    };
+  }).filter(x => x);
+
+  const processedStatics = statics.map(file => ({
+    filename: `assets/${mix}/${file}`,
+    type: 'static'
+  }));
+
+  return [...processedStatics, ...processedGifs, ...processedSpriteSheets];
 };
 
-getMixFiles().then(files => {
-  console.log(files);
-  console.log(files);
+const getMixFiles = async () => {
+  const folders = await fs.readdir('src/assets');
+
+  const transformedFolders = folders
+    .filter(folder => folder.startsWith('mix'));
+
+  const files = await Promise.map(transformedFolders,
+    folder => readFolderSafe(
+      folder,
+      'src/assets/' + folder
+    ));
+
+  const foldersObj = folders
+    .map((folder, index) => ({
+      [folder]: files[index]
+    }))
+    .reduce((acc, x) => ({
+      ...acc, ...x
+    }));
+
+  const out = {};
+  for (const [key, val] of Object.entries(foldersObj)) {
+    console.log(chalk.blue(key) + chalk.red(val));
+    out[key] = val.filter(x => x);
+  }
+
+  return out;
+};
+
+((async () => {
+  /*
+   * entrypoint
+   */
+  const files = await getMixFiles();
   fs.writeFile(
-    'src/assets/asset-data.json',
-    JSON.stringify(files, null, 2),
-    err => {
-      if (err) {
-        console.log(err);
-      }
-    }
+    ASSET_DATA,
+    JSON.stringify(files, null, 2)
   );
-});
+  /*
+  */
+})());
