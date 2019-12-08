@@ -4,7 +4,6 @@ import axios from 'axios';
 import * as Menu from './menu.js';
 import * as Background from './background.js';
 
-
 import * as MixCodeFactory from './mix.js';
 
 function shuffle (a) {
@@ -54,21 +53,24 @@ const renderPage = () => {
     if (mixName === '') {
       mixName = 'mix01';
     }
+    
+    const fileManifest = resp.data;
 
-    const code = MixCodeFactory.getMixCode(mixName);
-    code.sayHi();
+    const pageRenderer = MixCodeFactory.getMixCode(mixName);
+    pageRenderer.sayHi();
+    
+    //const layers = pageRenderer.getLayers();
+    //
+    //for (const layerRenderer of layers) {
+    //    
+    //}
 
-    fileNames = resp.data[mixName];
-
+    const fileNames = resp.data[mixName];
     Background.renderBackground({
+      container: backgroundContainer,
       fileNames: shuffle(fileNames),
       surfaceWidth: app.renderer.width,
       surfaceHeight: app.renderer.height
-    }).map(task => {
-      task.then(element => {
-        console.log(element.constructor.name);
-        backgroundContainer.addChild(element);
-      });
     });
   });
 
