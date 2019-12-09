@@ -33,19 +33,31 @@ const readFolderSafe = async (mix, path) => {
     file.endsWith('.spritesheet.png')
   ));
 
-  const cachedFiles = await fs.readFile(ASSET_DATA);
-  const parsedCachedFiles = JSON.parse(cachedFiles);
-  const processedSpriteSheets = spriteSheets.map(file => {
-    const cachedMetadata = parsedCachedFiles[mix].find(meta => (meta.filename.endsWith(file)));
+  let cachedFiles;
+  try {
+    cachedFiles = await fs.readFile(ASSET_DATA);
+  } catch (e) {
+    console.log(chalk.red('No assets-data.json found! Rebudiling all...'));
+    cachedFiles = null;
+  }
 
-    if (!cachedMetadata) {
-      console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
-      console.log(chalk.red('Delete this spritesheet and run again'));
-      return null;
-    } else {
-      return cachedMetadata;
-    }
-  }).filter(x => x); // drop problematic spritesheets
+  let processedSpriteSheets;
+  if (cachedFiles) {
+    const parsedCachedFiles = JSON.parse(cachedFiles);
+    processedSpriteSheets = spriteSheets.map(file => {
+      const cachedMetadata = parsedCachedFiles[mix].find(meta => (meta.filename.endsWith(file)));
+
+      if (!cachedMetadata) {
+        console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
+        console.log(chalk.red('Delete this spritesheet and run again'));
+        return null;
+      } else {
+        return cachedMetadata;
+      }
+    }).filter(x => x); // drop problematic spritesheets
+  } else {
+    processedSpriteSheets = [];
+  }
 
   const processedGifs = await Promise.map(gifs, async (file) => {
     const spriteSheetName = file.replace('gif', 'spritesheet.png');
