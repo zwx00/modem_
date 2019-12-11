@@ -69,7 +69,7 @@ const readFolderSafe = async (mix, path) => {
       const meta = await convertGif(`${path}/${file}`);
       return {
         ...meta,
-        filename: `assets/${mix}/${spriteSheetName}`,
+        filename: `assets/${mix}/samples/${spriteSheetName}`,
         type: 'animation'
       };
     } catch (e) {
@@ -79,7 +79,7 @@ const readFolderSafe = async (mix, path) => {
   }).filter(x => x);
 
   const processedStatics = statics.map(file => ({
-    filename: `assets/${mix}/${file}`,
+    filename: `assets/${mix}/samples/${file}`,
     type: 'static'
   }));
 
@@ -95,7 +95,7 @@ const getMixFiles = async () => {
   const files = await Promise.map(transformedFolders,
     folder => readFolderSafe(
       folder,
-      'src/assets/' + folder
+      'src/assets/' + folder + '/samples'
     ));
 
   const foldersObj = transformedFolders
