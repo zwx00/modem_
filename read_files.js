@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 const chalk = require('chalk');
 const { convertGif } = require('./convert_gifs.js');
 const Promise = require('bluebird');
+const _ = require('lodash');
 
 const DRY = false;
 
@@ -34,7 +35,7 @@ const readFolderSafe = async (mix, layer) => {
   ));
 
   const processedStatics = statics.map(file => ({
-    filename: `assets/${mix}/${file}`,
+    filename: `${path}/${file}`,
     type: 'static'
   }));
 
@@ -58,11 +59,15 @@ const readFolderSafe = async (mix, layer) => {
   if (cachedFiles) {
     const parsedCachedFiles = JSON.parse(cachedFiles);
     processedSpriteSheets = spriteSheets.map(file => {
-      const cachedMetadata = parsedCachedFiles[mix][layer].find(meta => (meta.filename.endsWith(file)));
-
-      if (!cachedMetadata) {
+      const relevantLayer = _.get(parsedCachedFiles, `${mix}.${layer}`, null);
+      if (!relevantLayer) {
         console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
         console.log(chalk.red('Delete this spritesheet and run again'));
+        return;
+      }
+      const cachedMetadata = relevantLayer.find(meta => (meta.filename.endsWith(file)));
+
+      if (!cachedMetadata) {
         return null;
       } else {
         return cachedMetadata;
@@ -82,11 +87,12 @@ const readFolderSafe = async (mix, layer) => {
       const meta = await convertGif(`${path}/${file}`);
       return {
         ...meta,
-        filename: `assets/${mix}/samples/${spriteSheetName}`,
+        filename: `${path}/${spriteSheetName}`,
         type: 'animation'
       };
     } catch (e) {
       console.log(chalk.red(`couldn't convert ${file}`));
+      console.log(e);
       return undefined;
     }
   }).filter(x => x);
