@@ -92,7 +92,10 @@ const getMixFiles = async () => {
   const transformedFolders = folders
     .filter(folder => folder.startsWith('mix'));
 
-  const files = await Promise.map(transformedFolders,
+  const layers = await Promise.map(transformedFolders,
+    folder => fs.readdir(folder))
+
+  const files = await Promise.map(layers,
     folder => readFolderSafe(
       folder,
       'src/assets/' + folder + '/samples'

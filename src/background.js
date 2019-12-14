@@ -17,8 +17,8 @@ class MovingSpritePainter {
     this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
 
     this.spriteData = {
-      xChange: Math.random() * Utils.randomDirection() * 0.000005,
-      yChange: Math.random() * Utils.randomDirection() * 0.000005,
+      xChange: Math.random() * Utils.randomDirection() * 0.0000005,
+      yChange: Math.random() * Utils.randomDirection() * 0.0000005,
       rotationSpeed: Math.random() * 0.00000002
     };
   }
