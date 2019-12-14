@@ -4,13 +4,17 @@ const chalk = require('chalk');
 const { convertGif } = require('./convert_gifs.js');
 const Promise = require('bluebird');
 
+const DRY = false;
+
 const ASSET_DATA = 'src/assets/asset-data.json';
 
-const readFolderSafe = async (mix, path) => {
+const readFolderSafe = async (mix, layer) => {
+  const path = `src/assets/${mix}/${layer}`;
+
   try {
     await fs.access(path);
   } catch (e) {
-    console.log(chalk.red(':: WARNING could not access folder'));
+    console.log(chalk.red(`:: WARNING could not access folder ${path}`));
 
     return [];
   }
@@ -29,6 +33,15 @@ const readFolderSafe = async (mix, path) => {
     file.endsWith('.jpeg')
   ));
 
+  const processedStatics = statics.map(file => ({
+    filename: `assets/${mix}/${file}`,
+    type: 'static'
+  }));
+
+  if (DRY) {
+    return processedStatics;
+  }
+
   const spriteSheets = transformedFiles.filter(file => (
     file.endsWith('.spritesheet.png')
   ));
@@ -45,7 +58,7 @@ const readFolderSafe = async (mix, path) => {
   if (cachedFiles) {
     const parsedCachedFiles = JSON.parse(cachedFiles);
     processedSpriteSheets = spriteSheets.map(file => {
-      const cachedMetadata = parsedCachedFiles[mix].find(meta => (meta.filename.endsWith(file)));
+      const cachedMetadata = parsedCachedFiles[mix][layer].find(meta => (meta.filename.endsWith(file)));
 
       if (!cachedMetadata) {
         console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
@@ -78,41 +91,31 @@ const readFolderSafe = async (mix, path) => {
     }
   }).filter(x => x);
 
-  const processedStatics = statics.map(file => ({
-    filename: `assets/${mix}/samples/${file}`,
-    type: 'static'
-  }));
-
   return [...processedStatics, ...processedGifs, ...processedSpriteSheets];
 };
 
 const getMixFiles = async () => {
-  const folders = await fs.readdir('src/assets');
+  const mixFolders = await fs.readdir('src/assets');
 
-  const transformedFolders = folders
+  const transformedMixFolders = mixFolders
     .filter(folder => folder.startsWith('mix'));
 
-  const layers = await Promise.map(transformedFolders,
-    folder => fs.readdir(folder))
+  const out = await Promise.map(transformedMixFolders, async mix => {
+    const layers = await fs.readdir(`src/assets/${mix}`, { withFileTypes: true });
 
-  const files = await Promise.map(layers,
-    folder => readFolderSafe(
-      folder,
-      'src/assets/' + folder + '/samples'
-    ));
+    const transformedLayers = layers.filter(layer => layer.isDirectory()).map(layer => layer.name);
+    const layerObject = {};
 
-  const foldersObj = transformedFolders
-    .map((folder, index) => ({
-      [folder]: files[index]
-    }))
-    .reduce((acc, x) => ({
-      ...acc, ...x
-    }));
+    await Promise.map(transformedLayers,
+      async layer => {
+        const layerFilesArray = await readFolderSafe(mix, layer);
+        layerObject[layer] = layerFilesArray;
+      });
 
-  const out = {};
-  for (const [key, val] of Object.entries(foldersObj)) {
-    out[key] = val;
-  }
+    return {
+      [mix]: layerObject
+    };
+  });
 
   return out;
 };
