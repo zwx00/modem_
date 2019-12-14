@@ -1,13 +1,13 @@
 const { GifUtil } = require('gifwrap');
 const Jimp = require('jimp');
 const fs = require('fs');
+const chalk = require('chalk');
 
 const convertGif = async path => {
   const outName = path.replace('.gif', '.spritesheet.png');
   const gif = await GifUtil.read(`${path}`);
 
   if (fs.existsSync(outName)) {
-    console.log(`${outName} already exists, skipping conversion`);
     return ({
       frames: gif.frames.length,
       offset: gif.width
@@ -15,10 +15,8 @@ const convertGif = async path => {
   }
 
   if (gif.frames.length > 60) {
-    console.log(`${path} not ok -> too many frames (${gif.frames.length})`);
+    console.log(chalk.red(`${path} not ok -> too many frames (${gif.frames.length})`));
     throw new Error('too many frames');
-  } else {
-    console.log(`${gif.frames.length} frames is ok!`);
   }
 
   const image = await Jimp.create(gif.width * gif.frames.length, gif.height);
