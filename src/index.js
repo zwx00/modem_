@@ -51,7 +51,8 @@ const renderPage = () => {
 
     for (const layer of layers) {
       const container = new PIXI.Container();
-      layer.renderer(resp.data[mixName], container);
+      debugger;
+      layer.renderer(resp.data[mixName][layer.name], container);
       app.stage.addChild(container);
     }
   });

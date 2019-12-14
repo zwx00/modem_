@@ -11,6 +11,7 @@ const ASSET_DATA = 'src/assets/asset-data.json';
 
 const readFolderSafe = async (mix, layer) => {
   const path = `src/assets/${mix}/${layer}`;
+  const webPath = `assets/${mix}/${layer}`;
 
   try {
     await fs.access(path);
@@ -35,7 +36,7 @@ const readFolderSafe = async (mix, layer) => {
   ));
 
   const processedStatics = statics.map(file => ({
-    filename: `${path}/${file}`,
+    filename: `${webPath}/${file}`,
     type: 'static'
   }));
 
@@ -88,7 +89,7 @@ const readFolderSafe = async (mix, layer) => {
       const meta = await convertGif(`${path}/${file}`);
       return {
         ...meta,
-        filename: `${path}/${spriteSheetName}`,
+        filename: `${webPath}/${spriteSheetName}`,
         type: 'animation'
       };
     } catch (e) {

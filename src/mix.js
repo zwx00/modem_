@@ -10,8 +10,8 @@ const getMixCode = (mix) => {
     getLayers () {
       return [
         {
-          name: 'background',
-          renderer: getLayerRenderer(mix, 'background')
+          name: 'samples',
+          renderer: getLayerRenderer(mix, 'samples')
         }
       ];
     },
@@ -29,7 +29,7 @@ const getMixCode = (mix) => {
 };
 
 const getLayerRenderer = (mix, layer) => {
-  if (layer === 'background') {
+  if (layer === 'samples') {
     return backgroundLayerRenderer;
   }
 //  return import(`assets/${mix}/${layer}/_code.js`).catch((err) => {
