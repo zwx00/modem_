@@ -61,17 +61,18 @@ const readFolderSafe = async (mix, layer) => {
     processedSpriteSheets = spriteSheets.map(file => {
       const relevantLayer = _.get(parsedCachedFiles, `${mix}.${layer}`, null);
       if (!relevantLayer) {
-        console.log(chalk.red(`${file} has no metadata in ${ASSET_DATA}.`));
+        console.log(chalk.red(`LAYER ${layer} has no metadata in ${ASSET_DATA}.`));
         console.log(chalk.red('Delete this spritesheet and run again'));
-        return;
+        throw Error('Delete then try again');
       }
       const cachedMetadata = relevantLayer.find(meta => (meta.filename.endsWith(file)));
-
       if (!cachedMetadata) {
-        return null;
-      } else {
-        return cachedMetadata;
+        console.log(chalk.red(`FILE ${file} has no metadata in ${ASSET_DATA}.`));
+        console.log(chalk.red('Delete this spritesheet and run again'));
+        throw Error('Delete then try again');
       }
+
+      return cachedMetadata;
     }).filter(x => x); // drop problematic spritesheets
   } else {
     processedSpriteSheets = [];
@@ -102,11 +103,12 @@ const readFolderSafe = async (mix, layer) => {
 
 const getMixFiles = async () => {
   const mixFolders = await fs.readdir('src/assets');
-
+  
+  const mixObject = {};
   const transformedMixFolders = mixFolders
     .filter(folder => folder.startsWith('mix'));
 
-  const out = await Promise.map(transformedMixFolders, async mix => {
+  await Promise.map(transformedMixFolders, async mix => {
     const layers = await fs.readdir(`src/assets/${mix}`, { withFileTypes: true });
 
     const transformedLayers = layers.filter(layer => layer.isDirectory()).map(layer => layer.name);
@@ -118,12 +120,11 @@ const getMixFiles = async () => {
         layerObject[layer] = layerFilesArray;
       });
 
-    return {
-      [mix]: layerObject
-    };
+    
+      mixObject[mix] = layerObject;
   });
 
-  return out;
+  return mixObject;
 };
 
 ((async () => {
