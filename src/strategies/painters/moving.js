@@ -35,11 +35,8 @@ class MovingSpritePainter {
   
     
   function onDragStart(event) {
-      // store a reference to the data
-      // the reason for this is because of multitouch
-      // we want to track the movement of this particular touch
       this.data = event.data;
-      this.alpha = 0.5;
+      this.alpha = 0.8;
       this.dragging = true;
   }
   
