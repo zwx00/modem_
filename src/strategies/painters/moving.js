@@ -20,7 +20,44 @@ class MovingSpritePainter {
       yChange: Math.random() * Utils.randomDirection() * 0.0000005,
       rotationSpeed: Math.random() * 0.00000002
     };
+
+    this.sprite.interactive = true;
+
+    this.sprite.buttonMode = true;
+
+    this.sprite.anchor.set(0.5);
+
+    this.sprite
+      .on('pointerdown', onDragStart)
+      .on('pointerup', onDragEnd)
+      .on('pointerupoutside', onDragEnd)
+      .on('pointermove', onDragMove);
+  
+    
+  function onDragStart(event) {
+      // store a reference to the data
+      // the reason for this is because of multitouch
+      // we want to track the movement of this particular touch
+      this.data = event.data;
+      this.alpha = 0.5;
+      this.dragging = true;
   }
+  
+  function onDragEnd() {
+      this.alpha = 1;
+      this.dragging = false;
+      // set the interaction data to null
+      this.data = null;
+  }
+  
+  function onDragMove() {
+      if (this.dragging) {
+          const newPosition = this.data.getLocalPosition(this.parent);
+          this.x = newPosition.x;
+          this.y = newPosition.y;
+      }
+  }
+};
 
   updateSprite (delta) {
     this.sprite.rotation += delta * this.spriteData.rotationSpeed;
