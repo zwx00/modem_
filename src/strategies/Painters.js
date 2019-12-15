@@ -9,3 +9,7 @@ export {
 export {
   SplashPainter as splash
 } from './painters/splash.js';
+
+export {
+  GradientPainter as gradient
+} from './painters/gradient.js';

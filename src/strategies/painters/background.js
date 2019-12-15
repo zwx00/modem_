@@ -21,6 +21,8 @@ class BackgroundPainter {
       alpha: 0.0005,
       rotationSpeed: Math.random() * 0.00000002
     };
+
+    this.sprite.zIndex = 1;
   }
 
   updateSprite (delta) {

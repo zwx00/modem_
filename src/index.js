@@ -60,6 +60,8 @@ const renderPage = () => {
   const layers = PageRenderer.getLayers();
   for (const layer of layers) {
     const container = new PIXI.Container();
+    container.sortableChildren = true;
+    container.zIndex = layer.zIndex;
     const files = getAssets(AssetData, mixName, layer.name);
     layer.renderer.bind(layer)(files, container);
     app.stage.addChild(container);

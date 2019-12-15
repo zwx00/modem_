@@ -6,19 +6,28 @@ import AssetData from '~/assets/asset-data.json';
 const layerMapping = {
   samples: {
     renderer: Renderers.samples,
-    painter: Painters.moving
+    painter: Painters.moving,
+    zIndex: 2,
   },
   background: {
     renderer: Renderers.background,
-    painter: Painters.background
+    painter: Painters.background,
+    zIndex: 1,
   },
   default: {
     renderer: Renderers.samples,
-    painter: Painters.moving
+    painter: Painters.moving,
+    zIndex: 4,
   },
   splash: {
     renderer: Renderers.background,
-    painter: Painters.splash
+    painter: Painters.splash,
+    zIndex: 3,
+  },
+  gradient: {
+    renderer: Renderers.background,
+    painter: Painters.gradient,
+    zIndex: 0,
   }
 };
 
