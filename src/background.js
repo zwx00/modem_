@@ -1,4 +1,5 @@
-import Utils from '~/utils';
+import Utils from './utils';
+import Framework from './framework';
 
 class MovingSpritePainter {
   constructor (sprite) {
@@ -20,44 +21,7 @@ class MovingSpritePainter {
       yChange: Math.random() * Utils.randomDirection() * 0.0000005,
       rotationSpeed: Math.random() * 0.00000002
     };
-
-    this.sprite.interactive = true;
-
-    this.sprite.buttonMode = true;
-
-    this.sprite.anchor.set(0.5);
-
-    this.sprite
-      .on('pointerdown', onDragStart)
-      .on('pointerup', onDragEnd)
-      .on('pointerupoutside', onDragEnd)
-      .on('pointermove', onDragMove);
-  
-    
-  function onDragStart(event) {
-      // store a reference to the data
-      // the reason for this is because of multitouch
-      // we want to track the movement of this particular touch
-      this.data = event.data;
-      this.alpha = 0.5;
-      this.dragging = true;
   }
-  
-  function onDragEnd() {
-      this.alpha = 1;
-      this.dragging = false;
-      // set the interaction data to null
-      this.data = null;
-  }
-  
-  function onDragMove() {
-      if (this.dragging) {
-          const newPosition = this.data.getLocalPosition(this.parent);
-          this.x = newPosition.x;
-          this.y = newPosition.y;
-      }
-  }
-};
 
   updateSprite (delta) {
     this.sprite.rotation += delta * this.spriteData.rotationSpeed;
@@ -81,4 +45,13 @@ class MovingSpritePainter {
   }
 }
 
-export default MovingSpritePainter;
+const backgroundLayerRenderer = (fileNames, container) => {
+  Utils.shuffle(fileNames).forEach((object, index) => {
+    Utils.sleep(Math.random() * 10000 * index)
+      .then(() => {
+        Framework.paintSprite(object, MovingSpritePainter, container);
+      });
+  });
+};
+
+export { backgroundLayerRenderer };
