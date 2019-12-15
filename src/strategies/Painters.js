@@ -7,5 +7,5 @@ export {
 } from './painters/background.js';
 
 export {
-  TestPainter as test
-} from './painters/test.js';
+  SplashPainter as splash
+} from './painters/splash.js';
