@@ -12,13 +12,12 @@ const randomElement = (arr, exclude = []) => {
 };
 
 const samplesLayerRenderer = async function (fileNames, container) {
-  const fileNames1 = fileNames.slice(5);
   let painted = [];
 
   while (true) {
     await Utils.sleep(Math.random() * 10000);
 
-    const selectedFile = randomElement(fileNames1, painted);
+    const selectedFile = randomElement(fileNames, painted);
 
     Framework.paintSprite.bind(this)(selectedFile, container);
     painted.push(selectedFile.filename);
