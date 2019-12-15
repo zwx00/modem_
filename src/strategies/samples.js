@@ -1,6 +1,6 @@
 import Utils from '~/utils';
 import Framework from '~/framework';
-import MovingSpritePainter from 'Strategies/painters/moving';
+import { MovingSpritePainter } from 'Strategies/painters/moving';
 
 const samplesLayerRenderer = (fileNames, container) => {
   Utils.shuffle(fileNames).forEach((object, index) => {

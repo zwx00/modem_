@@ -44,4 +44,6 @@ class MovingSpritePainter {
   }
 }
 
-export default MovingSpritePainter;
+export {
+  MovingSpritePainter
+};
