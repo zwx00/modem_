@@ -1,6 +1,6 @@
 const path = require('path');
+const express = require('express');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -8,7 +8,14 @@ module.exports = {
   entry: './src/index.js',
   devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
+    before (app, server, compiler) {
+      app
+        .get(
+          /^\/assets\/.*\.(jpe?g|png|json)$/, 
+          express.static(path.join('src'), { redirect: false })
+        );
+    }
   },
   output: {
     filename: 'main.js',
@@ -33,9 +40,6 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'modem_ website'
-    }),
-    new CopyPlugin([
-      { from: 'src/assets', to: 'assets' }
-    ])
+    })
   ]
 };

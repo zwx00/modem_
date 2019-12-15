@@ -25,6 +25,15 @@ const renderContainers = {
   background: null
 };
 
+const prefixAssets = (assets, mix, layer) => {
+  return assets.map(
+    assetObj => ({
+      ...assetObj,
+      filename: `assets/${mix}/${layer}/${assetObj.filename}`
+    })
+  );
+};
+
 const renderPage = () => {
   renderContainers.menu = Menu.renderMenu([
     'home',
@@ -50,7 +59,7 @@ const renderPage = () => {
     const layers = PageRenderer.getLayers();
     for (const layer of layers) {
       const container = new PIXI.Container();
-      layer.renderer(resp.data[mixName][layer.name], container);
+      layer.renderer(prefixAssets(resp.data[mixName][layer.name], mixName, layer.name), container);
       app.stage.addChild(container);
     }
   });
