@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js';
-import axios from 'axios';
 
 import * as Menu from './menu.js';
 
 import * as MixCodeFactory from './mix.js';
+
+import AssetData from './assets/asset-data.json';
 
 PIXI.utils.sayHello();
 
@@ -25,8 +26,8 @@ const renderContainers = {
   background: null
 };
 
-const prefixAssets = (assets, mix, layer) => {
-  return assets.map(
+const getAssets = (assetsData, mix, layer) => {
+  return assetsData[mix][layer].map(
     assetObj => ({
       ...assetObj,
       filename: `assets/${mix}/${layer}/${assetObj.filename}`
@@ -43,26 +44,23 @@ const renderPage = () => {
 
   const backgroundContainer = new PIXI.Container();
 
-  axios.get('assets/asset-data.json').then((resp) => {
-    /* routing ... */
+  /* routing ... */
 
-    let mixName = window.location.hash.replace('#', '');
-    if (mixName === '') {
-      mixName = 'mix01';
-    }
+  let mixName = window.location.hash.replace('#', '');
+  if (mixName === '') {
+    mixName = 'mix01';
+  }
 
-    /* rendering ... */
-    const PageRenderer = MixCodeFactory.getMixCode(mixName);
+  const PageRenderer = MixCodeFactory.getMixCode(mixName);
 
-    PageRenderer.sayHi();
+  const layers = PageRenderer.getLayers();
+  for (const layer of layers) {
+    const container = new PIXI.Container();
+    const files = getAssets(AssetData, mixName, layer.name);
 
-    const layers = PageRenderer.getLayers();
-    for (const layer of layers) {
-      const container = new PIXI.Container();
-      layer.renderer(prefixAssets(resp.data[mixName][layer.name], mixName, layer.name), container);
-      app.stage.addChild(container);
-    }
-  });
+    layer.renderer(files, container);
+    app.stage.addChild(container);
+  }
 
   app.stage.addChild(backgroundContainer);
 

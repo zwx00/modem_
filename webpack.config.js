@@ -12,7 +12,7 @@ module.exports = {
     before (app, server, compiler) {
       app
         .get(
-          /^\/assets\/.*\.(jpe?g|png|json)$/, 
+          /^\/assets\/.*\.(jpe?g|png|json)$/,
           express.static(path.join('src'), { redirect: false })
         );
     }
