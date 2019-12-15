@@ -34,19 +34,17 @@ class MovingSpritePainter {
       .on('pointermove', onDragMove);
 
     function onDragStart (event) {
-      // store a reference to the data
-      // the reason for this is because of multitouch
-      // we want to track the movement of this particular touch
       this.data = event.data;
-      this.alpha = 0.5;
+      this.alpha = 0.8;
       this.dragging = true;
     }
 
     function onDragEnd () {
       this.alpha = 1;
       this.dragging = false;
-      // set the interaction data to null
       this.data = null;
+      this.sprite.scale.x *= 1.25;
+      this.sprite.scale.y *= 1.25;
     }
 
     function onDragMove () {
