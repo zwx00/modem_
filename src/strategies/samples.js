@@ -1,12 +1,11 @@
 import Utils from '~/utils';
 import Framework from '~/framework';
-import { MovingSpritePainter } from 'Strategies/painters/moving';
 
-const samplesLayerRenderer = (fileNames, container) => {
+const samplesLayerRenderer = function (fileNames, container) {
   Utils.shuffle(fileNames).forEach((object, index) => {
     Utils.sleep(Math.random() * 10000 * index)
       .then(() => {
-        Framework.paintSprite(object, MovingSpritePainter, container);
+        Framework.paintSprite.bind(this)(object, container);
       });
   });
 };

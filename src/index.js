@@ -57,8 +57,9 @@ const renderPage = () => {
   for (const layer of layers) {
     const container = new PIXI.Container();
     const files = getAssets(AssetData, mixName, layer.name);
-
-    layer.renderer(files, container);
+    console.log(layer);
+    console.log(layer.renderer);
+    layer.renderer.bind(layer)(files, container);
     app.stage.addChild(container);
   }
 
