@@ -1,5 +1,4 @@
-import { backgroundLayerRenderer } from './background.js';
-import { backbackLayerRenderer } from './backbackground.js';
+import { backgroundLayerRenderer, samplesLayerRenderer } from './strategies.js';
 
 const getMixImports = () => {
   return require.context('babel-loader!./assets', true, /_mix.js/);
@@ -12,7 +11,7 @@ const getMixCode = (mix) => {
       return [
         {
           name: 'background',
-          renderer: getLayerRenderer(mix, 'backbackground')
+          renderer: getLayerRenderer(mix, 'background')
         },
         {
           name: 'samples',
@@ -35,11 +34,11 @@ const getMixCode = (mix) => {
 
 const getLayerRenderer = (mix, layer) => {
   if (layer === 'samples') {
-    return backgroundLayerRenderer;
+    return samplesLayerRenderer;
   }
 
-  if (layer === 'backbackground') {
-    return backbackLayerRenderer;
+  if (layer === 'background') {
+    return backgroundLayerRenderer;
   }
 
 //  return import(`assets/${mix}/${layer}/_code.js`).catch((err) => {

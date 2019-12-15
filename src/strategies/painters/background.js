@@ -1,24 +1,24 @@
-import Utils from './utils';
-import Framework from './framework';
+import Utils from '~/utils';
 
-class MovingSpritePainter {
+class BackgroundPainter {
   constructor (sprite) {
     this.surfaceWidth = window.innerWidth;
     this.surfaceHeight = window.innerHeight;
 
-    const ratio = (this.surfaceHeight / sprite.height / 5) * Math.random();
-
     this.sprite = sprite;
 
-    this.sprite.width = sprite.width * ratio + 50;
-    this.sprite.height = sprite.height * ratio + 50;
+    this.sprite.alpha = Math.random();
+
+    this.sprite.width = this.surfaceWidth;
+    this.sprite.height = this.surfaceHeight;
 
     this.sprite.x = Math.random() * this.surfaceWidth - sprite.width / 2;
     this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
 
     this.spriteData = {
-      xChange: Math.random() * Utils.randomDirection() * 0.0000005,
-      yChange: Math.random() * Utils.randomDirection() * 0.0000005,
+      xChange: Math.random() * Utils.randomDirection() * 0.05,
+      yChange: Math.random() * Utils.randomDirection() * 0.05,
+      alpha: 0.0005,
       rotationSpeed: Math.random() * 0.00000002
     };
   }
@@ -42,16 +42,9 @@ class MovingSpritePainter {
 
     this.sprite.x += delta * this.spriteData.xChange;
     this.sprite.y += delta * this.spriteData.yChange;
+
+    this.sprite.alpha += Math.sin(delta * this.spriteData.alpha);
   }
 }
 
-const backgroundLayerRenderer = (fileNames, container) => {
-  Utils.shuffle(fileNames).forEach((object, index) => {
-    Utils.sleep(Math.random() * 10000 * index)
-      .then(() => {
-        Framework.paintSprite(object, MovingSpritePainter, container);
-      });
-  });
-};
-
-export { backgroundLayerRenderer };
+export default BackgroundPainter;

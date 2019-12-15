@@ -7,6 +7,12 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   devtool: 'source-map',
+  resolve: {
+    alias: {
+      Strategies: path.resolve(__dirname, 'src/strategies/'),
+      '~': path.resolve(__dirname, 'src/')
+    }
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     before (app, server, compiler) {
