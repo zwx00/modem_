@@ -1,53 +1,62 @@
-import { backgroundLayerRenderer, samplesLayerRenderer } from './strategies.js';
+import * as Renderers from 'Strategies/Renderers';
+import * as Painters from 'Strategies/Painters';
+
+import AssetData from '~/assets/asset-data.json';
+
+const layerMapping = {
+  samples: {
+    renderer: Renderers.samples,
+    painter: Painters.moving
+  },
+  background: {
+    renderer: Renderers.background,
+    painter: Painters.background
+  },
+  default: {
+    renderer: Renderers.samples,
+    painter: Painters.moving
+  }
+};
 
 const getMixImports = () => {
-  return require.context('babel-loader!./assets', true, /_mix.js/);
+  return require.context('babel-loader!./assets', true, /_specific.js/);
 };
 
 const getMixCode = (mix) => {
-  const imports = getMixImports();
   const mixAbstraction = {
     getLayers () {
-      return [
-        {
-          name: 'background',
-          renderer: getLayerRenderer(mix, 'background')
-        },
-        {
-          name: 'samples',
-          renderer: getLayerRenderer(mix, 'samples')
-        }
-      ];
+      const layers = Object.keys(AssetData[mix]);
+
+      return layers.map(layer => ({
+        name: layer,
+        ...getLayerRenderer(mix, layer)
+      }));
     },
     sayHi () {
       console.log('%c hi', 'background: #222; color: #bada55');
     }
   };
-  const filename = `./${mix}/_mix.js`;
-  if (imports.keys().includes(filename)) {
-    const importedModule = imports(filename);
-    Object.assign(mixAbstraction, importedModule.mixClass);
-  }
-
   return mixAbstraction;
 };
 
 const getLayerRenderer = (mix, layer) => {
-  if (layer === 'samples') {
-    return samplesLayerRenderer;
+  let layerRenderer;
+
+  if (layerMapping[layer] === undefined) {
+    layerRenderer = layerMapping.default;
+    console.log(`:: ${layer} has no renderer specificed, defaulting....`);
+  } else {
+    layerRenderer = layerMapping[layer];
+    console.log(`:: ${layer} renderer found`);
   }
 
-  if (layer === 'background') {
-    return backgroundLayerRenderer;
+  const imports = getMixImports();
+  const filename = `./${mix}/${layer}/_specific.js`;
+  if (imports.keys().includes(filename)) {
+    const importedModule = imports(filename);
+    Object.assign(layerRenderer, importedModule.mixClass);
   }
-
-//  return import(`assets/${mix}/${layer}/_code.js`).catch((err) => {
-//    return {
-//      sayHi () {
-//        console.log('hi..');
-//      }
-//    };
-//  });
+  return layerRenderer;
 };
 
 export {

@@ -32,29 +32,29 @@ class MovingSpritePainter {
       .on('pointerup', onDragEnd)
       .on('pointerupoutside', onDragEnd)
       .on('pointermove', onDragMove);
-  
-    
-  function onDragStart(event) {
+
+    function onDragStart (event) {
       this.data = event.data;
       this.alpha = 0.8;
       this.dragging = true;
-  }
-  
-  function onDragEnd() {
+    }
+
+    function onDragEnd () {
       this.alpha = 1;
       this.dragging = false;
-      // set the interaction data to null
       this.data = null;
-  }
-  
-  function onDragMove() {
+      this.sprite.scale.x *= 1.25;
+      this.sprite.scale.y *= 1.25;
+    }
+
+    function onDragMove () {
       if (this.dragging) {
-          const newPosition = this.data.getLocalPosition(this.parent);
-          this.x = newPosition.x;
-          this.y = newPosition.y;
+        const newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
       }
+    }
   }
-};
 
   updateSprite (delta) {
     this.sprite.rotation += delta * this.spriteData.rotationSpeed;
@@ -78,4 +78,6 @@ class MovingSpritePainter {
   }
 }
 
-export default MovingSpritePainter;
+export {
+  MovingSpritePainter
+};

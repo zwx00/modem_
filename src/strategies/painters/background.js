@@ -47,4 +47,4 @@ class BackgroundPainter {
   }
 }
 
-export default BackgroundPainter;
+export { BackgroundPainter };
