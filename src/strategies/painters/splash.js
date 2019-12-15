@@ -6,7 +6,7 @@ class SplashPainter {
     this.sprite.anchor.set(0.5);
 
     this.spriteData = {
-      tint: Math.random()
+      fading: false
     };
     const rx = this.surfaceWidth / this.sprite.width;
     const ry = this.surfaceHeight / this.sprite.height;
@@ -26,10 +26,19 @@ class SplashPainter {
     this.sprite.y = this.surfaceHeight / 2;
     this.sprite.x = this.surfaceWidth / 2;
 
-    console.log (this.sprite.scale)
+    console.log (this.sprite.scale) 
+
+    function onTimepass () {
+      this.spriteData.fading = true
+      }
+
+    setTimeout(onTimepass.bind(this), 15000);
   }
+  
   updateSprite (delta) {
-  }
+  if (this.spriteData.fading === true) {
+      this.sprite.alpha = this.sprite.alpha - 0.005;
+  }}
 }
 
 export {
