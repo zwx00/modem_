@@ -54,7 +54,7 @@ const getLayerRenderer = (mix, layer) => {
   const filename = `./${mix}/${layer}/_specific.js`;
   if (imports.keys().includes(filename)) {
     const importedModule = imports(filename);
-    Object.assign(layerRenderer, importedModule.mixClass);
+    Object.assign(layerRenderer, importedModule.default);
   }
   return layerRenderer;
 };
