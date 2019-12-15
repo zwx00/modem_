@@ -26,7 +26,8 @@ const paintSprite = function (assetDefinition, container) {
     .add(assetDefinition.filename)
     .load((_, resources) => {
       const sprite = getSprite(resources[assetDefinition.filename], assetDefinition);
-
+      
+      sprite._filename = assetDefinition.filename;
       // eslint-disable-next-line
       const currentSpritePainter = new this.painter(sprite);
 

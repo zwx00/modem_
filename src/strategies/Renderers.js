@@ -1,7 +1,7 @@
 export {
   backgroundLayerRenderer as background
-} from './background.js';
+} from './renderers/background.js';
 
 export {
   samplesLayerRenderer as samples
-} from './samples.js';
+} from './renderers/samples.js';
