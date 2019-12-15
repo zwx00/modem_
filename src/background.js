@@ -47,7 +47,7 @@ class MovingSpritePainter {
 
 const backgroundLayerRenderer = (fileNames, container) => {
   Utils.shuffle(fileNames).forEach((object, index) => {
-    Utils.sleep(2000 * index)
+    Utils.sleep(Math.random() * 10000 * index)
       .then(() => {
         Framework.paintSprite(object, MovingSpritePainter, container);
       });
