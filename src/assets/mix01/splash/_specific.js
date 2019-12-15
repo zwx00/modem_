@@ -1,9 +1,7 @@
-const mixClass = {
-  sayHi () {
-    console.log('hi from layer');
-  }
+import * as Painters from 'Strategies/Painters';
+
+const layer = {
+  painter: Painters.test
 };
 
-export {
-  mixClass
-};
+export default layer;

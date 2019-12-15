@@ -1,9 +1,8 @@
 import Framework from '~/framework';
-import { BackgroundPainter } from 'Strategies/painters/background';
 
-const backgroundLayerRenderer = (fileNames, container) => {
+const backgroundLayerRenderer = function (fileNames, container) {
   fileNames.forEach((filename) => {
-    Framework.paintSprite(filename, BackgroundPainter, container);
+    Framework.paintSprite.bind(this)(filename, container);
   });
 };
 
