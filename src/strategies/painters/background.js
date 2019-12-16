@@ -16,9 +16,9 @@ class BackgroundPainter {
     this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
 
     this.spriteData = {
-      xChange: Math.random() * Utils.randomDirection() * 0.05,
-      yChange: Math.random() * Utils.randomDirection() * 0.05,
-      alpha: 0.0005,
+      xChange: Math.random() * Utils.randomDirection() * 0.085,
+      yChange: Math.random() * Utils.randomDirection() * 0.085,
+      alpha: 0.05,
       rotationSpeed: Math.random() * 0.00000002
     };
 

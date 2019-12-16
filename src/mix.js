@@ -17,17 +17,22 @@ const layerMapping = {
   default: {
     renderer: Renderers.samples,
     painter: Painters.moving,
-    zIndex: 4,
+    zIndex: 2,
   },
   splash: {
     renderer: Renderers.background,
     painter: Painters.splash,
-    zIndex: 3,
+    zIndex: 4,
   },
   gradient: {
     renderer: Renderers.background,
     painter: Painters.gradient,
     zIndex: 0,
+  },
+  mist: {
+    renderer: Renderers.background,
+    painter: Painters.mist,
+    zIndex: 3,
   }
 };
 

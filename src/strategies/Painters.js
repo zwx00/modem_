@@ -13,3 +13,7 @@ export {
 export {
   GradientPainter as gradient
 } from './painters/gradient.js';
+
+export {
+  MistPainter as mist
+} from './painters/mist.js';

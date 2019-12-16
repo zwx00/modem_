@@ -32,7 +32,7 @@ class SplashPainter {
       this.spriteData.fading = true
       }
 
-    setTimeout(onTimepass.bind(this), 15000);
+    setTimeout(onTimepass.bind(this), 8000);
   }
   
   updateSprite (delta) {
