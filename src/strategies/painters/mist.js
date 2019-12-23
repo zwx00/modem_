@@ -7,19 +7,17 @@ class MistPainter {
 
     this.sprite = sprite;
 
-    this.sprite.alpha = Math.random();
+    this.sprite.alpha = Math.random() * 0.75;
 
-    this.sprite.width = this.surfaceWidth;
-    this.sprite.height = this.surfaceHeight;
-
-    this.sprite.x = Math.random() * this.surfaceWidth - sprite.width / 2;
-    this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
+    this.sprite.width = this.surfaceWidth * 2;
+    this.sprite.height = this.surfaceHeight * 2;
 
     this.spriteData = {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
       yChange: Math.random() * Utils.randomDirection() * 0.085,
-      alpha: 0.05,
-      rotationSpeed: Math.random() * 0.00000002
+      rotationSpeed: Math.random() * 0.00000002,
+      alpha: Math.random() * 3,
+      alphaChange: Math.random()
     };
 
     this.sprite.zIndex = 1;
@@ -45,7 +43,8 @@ class MistPainter {
     this.sprite.x += delta * this.spriteData.xChange;
     this.sprite.y += delta * this.spriteData.yChange;
 
-    this.sprite.alpha += Math.sin(delta * this.spriteData.alpha);
+    this.spriteData.alpha += delta * 0.01 * this.spriteData.alphaChange;
+    this.sprite.alpha = Math.sin(this.spriteData.alpha);
   }
 }
 

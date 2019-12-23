@@ -17,7 +17,7 @@ const layerMapping = {
   default: {
     renderer: Renderers.samples,
     painter: Painters.moving,
-    zIndex: 2,
+    zIndex: 5,
   },
   splash: {
     renderer: Renderers.background,

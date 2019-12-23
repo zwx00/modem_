@@ -15,7 +15,7 @@ const samplesLayerRenderer = async function (fileNames, container) {
   let painted = [];
 
   while (true) {
-    await Utils.sleep(Math.random() * 6000);
+    await Utils.sleep(Math.random() * 2000);
 
     const selectedFile = randomElement(fileNames, painted);
 
