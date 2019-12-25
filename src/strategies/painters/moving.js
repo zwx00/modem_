@@ -17,7 +17,7 @@ class MovingSpritePainter {
   constructor (sprite) {
     this.surfaceWidth = window.innerWidth;
     this.surfaceHeight = window.innerHeight;
-    const i = randn_bm(50, 10000, 6)
+    const i = randn_bm(100, 10000, 7)
     const ratio = i / sprite.width;
     this.sprite = sprite;
     console.log("width:" + i)

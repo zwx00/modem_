@@ -1,4 +1,5 @@
 import Utils from '~/utils';
+import fn from 'periodic-function';
 
 class MistPainter {
   constructor (sprite) {
@@ -15,7 +16,6 @@ class MistPainter {
     this.spriteData = {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
       yChange: Math.random() * Utils.randomDirection() * 0.085,
-      rotationSpeed: Math.random() * 0.00000002,
       alpha: Math.random() * 3,
       alphaChange: Math.random()
     };
@@ -24,7 +24,6 @@ class MistPainter {
   }
 
   updateSprite (delta) {
-    this.sprite.rotation += delta * this.spriteData.rotationSpeed;
 
     if (this.sprite.x + delta * this.spriteData.xChange > this.surfaceWidth) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
@@ -43,8 +42,8 @@ class MistPainter {
     this.sprite.x += delta * this.spriteData.xChange;
     this.sprite.y += delta * this.spriteData.yChange;
 
-    this.spriteData.alpha += delta * 0.01 * this.spriteData.alphaChange;
-    this.sprite.alpha = Math.sin(this.spriteData.alpha);
+    this.spriteData.alpha += delta * 0.004 * this.spriteData.alphaChange;
+    this.sprite.alpha = fn.triangle(this.spriteData.alpha * 0.1);
   }
 }
 
