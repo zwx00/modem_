@@ -13,8 +13,10 @@ class BackgroundPainter {
     this.sprite.width = this.surfaceWidth;
     this.sprite.height = this.surfaceHeight;
 
-    this.sprite.x = Math.random() * this.surfaceWidth - sprite.width / 2;
-    this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
+    this.sprite.x = Math.random() * this.surfaceWidth;
+    this.sprite.y = Math.random() * this.surfaceHeight;
+
+    this.sprite.anchor.set(0.5);
 
     this.spriteData = {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
@@ -31,14 +33,14 @@ class BackgroundPainter {
     if (this.sprite.x + delta * this.spriteData.xChange > this.surfaceWidth) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
     }
-    if (this.sprite.y + delta * this.spriteData.xChange > this.surfaceHeight) {
+    if (this.sprite.y + delta * this.spriteData.yChange > this.surfaceHeight) {
       this.spriteData.yChange = -1 * this.spriteData.yChange;
     }
 
     if (this.sprite.x + delta * this.spriteData.xChange < 0) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
     }
-    if (this.sprite.y + delta * this.spriteData.xChange < 0) {
+    if (this.sprite.y + delta * this.spriteData.yChange < 0) {
       this.spriteData.yChange = -1 * this.spriteData.yChange;
     }
 

@@ -15,9 +15,7 @@ class GradientPainter {
     }
 
    
-    updateSprite (delta) { 
-      
-     
+    updateSprite (delta) {  
   }
 }
 

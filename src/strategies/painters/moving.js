@@ -75,14 +75,14 @@ class MovingSpritePainter {
     if (this.sprite.x + delta * this.spriteData.xChange > this.surfaceWidth) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
     }
-    if (this.sprite.y + delta * this.spriteData.xChange > this.surfaceHeight) {
+    if (this.sprite.y + delta * this.spriteData.yChange > this.surfaceHeight) {
       this.spriteData.yChange = -1 * this.spriteData.yChange;
     }
 
     if (this.sprite.x + delta * this.spriteData.xChange < 0) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
     }
-    if (this.sprite.y + delta * this.spriteData.xChange < 0) {
+    if (this.sprite.y + delta * this.spriteData.yChange < 0) {
       this.spriteData.yChange = -1 * this.spriteData.yChange;
     }
 
