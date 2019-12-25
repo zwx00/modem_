@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js';
+
 class GradientPainter {
     constructor (sprite) {
       this.sprite = sprite;
@@ -9,16 +11,19 @@ class GradientPainter {
 
       this.sprite.width = this.surfaceWidth;
       this.sprite.height = this.surfaceHeight;
-      
-      this.sprite.zIndex = 0;
-      console.log ('vtf')
+       
     }
 
-   updateSprite (delta) {
-    }
-  }
    
-  export {
+    updateSprite (delta) { 
+      
+     
+  }
+}
+
+ 
+  
+    export {
     GradientPainter
   };
 

@@ -1,5 +1,6 @@
 import Utils from '~/utils';
 import fn from 'periodic-function';
+import * as PIXI from 'pixi.js';
 
 class MistPainter {
   constructor (sprite) {
@@ -8,19 +9,19 @@ class MistPainter {
 
     this.sprite = sprite;
 
-    this.sprite.alpha = Math.random() * 0.75;
+    this.sprite.width = this.surfaceWidth * 1.5;
+    this.sprite.height = this.surfaceHeight * 1.5;
 
-    this.sprite.width = this.surfaceWidth * 2;
-    this.sprite.height = this.surfaceHeight * 2;
+    this.sprite.x = Math.random() * this.surfaceWidth - sprite.width / 2;
+    this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
 
     this.spriteData = {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
       yChange: Math.random() * Utils.randomDirection() * 0.085,
-      alpha: Math.random() * 3,
+      alpha: Math.random() * 37,
       alphaChange: Math.random()
     };
-
-    this.sprite.zIndex = 1;
+    
   }
 
   updateSprite (delta) {
@@ -44,6 +45,7 @@ class MistPainter {
 
     this.spriteData.alpha += delta * 0.004 * this.spriteData.alphaChange;
     this.sprite.alpha = fn.triangle(this.spriteData.alpha * 0.1);
+
   }
 }
 

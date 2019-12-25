@@ -20,15 +20,13 @@ class BackgroundPainter {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
       yChange: Math.random() * Utils.randomDirection() * 0.085,
       alpha: Math.random() * 100,
-      alphaChange: Math.random(),
-      rotationSpeed: Math.random() * 0.00000002
+      alphaChange: Math.random()
     };
 
     this.sprite.zIndex = 1;
   }
 
   updateSprite (delta) {
-    this.sprite.rotation += delta * this.spriteData.rotationSpeed;
 
     if (this.sprite.x + delta * this.spriteData.xChange > this.surfaceWidth) {
       this.spriteData.xChange = -1 * this.spriteData.xChange;
@@ -48,8 +46,9 @@ class BackgroundPainter {
     this.sprite.y += delta * this.spriteData.yChange;
 
     this.spriteData.alpha += delta * 0.004 * this.spriteData.alphaChange;
-    this.sprite.alpha = fn.triangle(this.spriteData.alpha * 0.1);
+    this.sprite.alpha = fn.triangle(this.spriteData.alpha * 0.2);
   }
 }
 
-export { BackgroundPainter };
+export { 
+  BackgroundPainter };

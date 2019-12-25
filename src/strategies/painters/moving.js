@@ -1,4 +1,5 @@
 import Utils from '~/utils';
+import * as PIXI from 'pixi.js';
 
 function randn_bm(min, max, skew) {
   var u = 0, v = 0;
@@ -20,7 +21,6 @@ class MovingSpritePainter {
     const i = randn_bm(100, 10000, 7)
     const ratio = i / sprite.width;
     this.sprite = sprite;
-    console.log("width:" + i)
 
     this.sprite.width = i
     this.sprite.height = sprite.height * ratio; 
@@ -88,6 +88,8 @@ class MovingSpritePainter {
 
     this.sprite.x += delta * this.spriteData.xChange;
     this.sprite.y += delta * this.spriteData.yChange;
+
+  
   }
 }
 
