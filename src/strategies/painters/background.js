@@ -1,4 +1,5 @@
 import Utils from '~/utils';
+import fn from 'periodic-function';
 
 class BackgroundPainter {
   constructor (sprite) {
@@ -18,7 +19,7 @@ class BackgroundPainter {
     this.spriteData = {
       xChange: Math.random() * Utils.randomDirection() * 0.085,
       yChange: Math.random() * Utils.randomDirection() * 0.085,
-      alpha: Math.random() * 10,
+      alpha: Math.random() * 100,
       alphaChange: Math.random(),
       rotationSpeed: Math.random() * 0.00000002
     };
@@ -46,8 +47,8 @@ class BackgroundPainter {
     this.sprite.x += delta * this.spriteData.xChange;
     this.sprite.y += delta * this.spriteData.yChange;
 
-    this.spriteData.alpha += delta * 0.005 * this.spriteData.alphaChange;
-    this.sprite.alpha = Math.sin(this.spriteData.alpha);
+    this.spriteData.alpha += delta * 0.004 * this.spriteData.alphaChange;
+    this.sprite.alpha = fn.triangle(this.spriteData.alpha * 0.1);
   }
 }
 

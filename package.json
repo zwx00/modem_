@@ -32,6 +32,7 @@
     "gifwrap": "^0.9.2",
     "html-webpack-plugin": "^3.2.0",
     "jimp": "^0.8.5",
+    "periodic-function": "^1.1.4",
     "pixi-apngandgif": "^1.0.0",
     "pixi.js": "^5.1.5"
   }
