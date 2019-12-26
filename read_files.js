@@ -56,6 +56,7 @@ const readFolderSafe = async (mix, layer) => {
   }
 
   let processedSpriteSheets;
+
   if (cachedFiles) {
     const parsedCachedFiles = JSON.parse(cachedFiles);
     processedSpriteSheets = spriteSheets.map(file => {
@@ -103,7 +104,7 @@ const readFolderSafe = async (mix, layer) => {
 
 const getMixFiles = async () => {
   const mixFolders = await fs.readdir('src/assets');
-  
+
   const mixObject = {};
   const transformedMixFolders = mixFolders
     .filter(folder => folder.startsWith('mix'));
@@ -114,14 +115,12 @@ const getMixFiles = async () => {
     const transformedLayers = layers.filter(layer => layer.isDirectory()).map(layer => layer.name);
     const layerObject = {};
 
-    await Promise.map(transformedLayers,
-      async layer => {
-        const layerFilesArray = await readFolderSafe(mix, layer);
-        layerObject[layer] = layerFilesArray;
-      });
+    await Promise.map(transformedLayers, async layer => {
+      const layerFilesArray = await readFolderSafe(mix, layer);
+      layerObject[layer] = layerFilesArray;
+    });
 
-    
-      mixObject[mix] = layerObject;
+    mixObject[mix] = layerObject;
   });
 
   return mixObject;
@@ -131,11 +130,14 @@ const getMixFiles = async () => {
   /*
    * entrypoint
    */
+
   const files = await getMixFiles();
+
   fs.writeFile(
     ASSET_DATA,
     JSON.stringify(files, null, 2)
   );
+
   /*
   */
 })());
