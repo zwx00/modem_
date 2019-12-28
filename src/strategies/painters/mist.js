@@ -9,8 +9,8 @@ class MistPainter {
 
     this.sprite = sprite;
 
-    this.sprite.width = this.surfaceWidth * 1.5;
-    this.sprite.height = this.surfaceHeight * 1.5;
+    this.sprite.width = this.surfaceWidth;
+    this.sprite.height = this.surfaceHeight;
 
     this.sprite.x = Math.random() * this.surfaceWidth;
     this.sprite.y = Math.random() * this.surfaceHeight;

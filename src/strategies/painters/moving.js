@@ -22,6 +22,10 @@ class MovingSpritePainter {
     const ratio = i / sprite.width;
     this.sprite = sprite;
 
+    this.sprite.blendMode = PIXI.BLEND_MODES.OVERLAY;
+
+    this.sprite.alpha = Math.random();
+
     this.sprite.width = i
     this.sprite.height = sprite.height * ratio; 
 
