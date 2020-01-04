@@ -100,6 +100,7 @@ const injectSoundcloud = async (src, targetContainer) => {
 const renderPage = () => {
   app.stage.removeChild(backgroundContainer);
   backgroundContainer = new PIXI.Container();
+  backgroundContainer.sortableChildren = true;
 
   renderContainers.menu = Menu.renderMenu([
     'home',
