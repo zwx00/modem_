@@ -6,6 +6,8 @@ import * as MixCodeFactory from './mix.js';
 import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
 
+const MIX_COUNT = 26;
+
 PIXI.utils.sayHello();
 
 const app = new PIXI.Application({
@@ -39,7 +41,16 @@ const getAssets = (assetsData, mix, layer) => {
   );
 };
 
-const injectSoundcloud = async (src) => {
+let backgroundContainer = new PIXI.Container();
+
+let widget = null;
+
+const injectSoundcloud = async (src, targetContainer) => {
+  const oldIframe = document.querySelector('body > iframe');
+  console.log(oldIframe);
+  if (oldIframe) {
+    document.body.removeChild(oldIframe);
+  }
   const iframe = document.createElement('iframe');
 
   iframe.id = 'sc-widget';
@@ -50,7 +61,7 @@ const injectSoundcloud = async (src) => {
 
   document.body.appendChild(iframe);
 
-  const widget = SC.Widget(iframe);
+  widget = SC.Widget(iframe);
   const graphics = new PIXI.Graphics();
 
   graphics.lineStyle(5, 0xffff1a);
@@ -67,10 +78,19 @@ const injectSoundcloud = async (src) => {
   container.interactive = true;
   container.zIndex = 2000;
 
-  app.stage.addChild(container);
+  targetContainer.addChild(container);
 
   widget.bind(SC.Widget.Events.READY, () => {
+
     container.on('pointerdown', () => {
+      const gfx = new PIXI.Graphics();
+      gfx.lineStyle(5, 0xffff1a);
+
+      gfx.beginFill(0xffffff, 1);
+      gfx.drawPolygon(25, 120, 25 + 80, 120 + 50, 25, 120 + 100);
+
+      gfx.endFill();
+      container.addChild(gfx);
       console.log(':: playing audio');
       widget.play();
     });
@@ -78,24 +98,22 @@ const injectSoundcloud = async (src) => {
 };
 
 const renderPage = () => {
+  app.stage.removeChild(backgroundContainer);
+  backgroundContainer = new PIXI.Container();
+
   renderContainers.menu = Menu.renderMenu([
     'home',
     'mix series',
     'radio show'
   ]);
 
-  const backgroundContainer = new PIXI.Container();
-
   /* routing ... */
 
-  let mixName = window.location.hash.replace('#', '');
-  if (mixName === '') {
-    mixName = 'mix01';
+  if (window.location.hash === '') {
+    window.location.hash = `#mix${MIX_COUNT}`;
   }
 
-  if (mixName in MixUrls) {
-    injectSoundcloud(MixUrls[mixName]);
-  }
+  const mixName = window.location.hash.replace('#', '');
 
   const PageRenderer = MixCodeFactory.getMixCode(mixName);
 
@@ -106,13 +124,45 @@ const renderPage = () => {
     container.zIndex = layer.zIndex;
     const files = getAssets(AssetData, mixName, layer.name);
     layer.renderer.bind(layer)(files, container);
-    app.stage.addChild(container);
+    backgroundContainer.addChild(container);
   }
 
   app.stage.addChild(backgroundContainer);
+
+  if (mixName in MixUrls) {
+    injectSoundcloud(MixUrls[mixName], backgroundContainer);
+  }
 
   renderContainers.menu.zIndex = 1000;
   app.stage.addChild(renderContainers.menu);
 };
 
 renderPage();
+
+const changeMix = (difference) => {
+  if (window.location.hash !== '') {
+    const mixNum = Number(window.location.hash.replace('#mix', ''));
+
+    if (difference > 0 && mixNum + difference <= MIX_COUNT) {
+      window.location.hash = `#mix${mixNum + difference}`;
+      renderPage();
+    }
+
+    if (difference < 0 && mixNum + difference > 0) {
+      const paddedMixNum = `0000${mixNum + difference}`.slice(-2);
+
+      window.location.hash = `#mix${paddedMixNum}`;
+      renderPage();
+    }
+  }
+};
+
+document.addEventListener('keydown', (e) => {
+  console.log(':: doing the switch');
+  e = e || window.event;
+  if (e.keyCode === 37) {
+    changeMix(-1);
+  } else if (e.keyCode === 39) {
+    changeMix(+1);
+  }
+});
