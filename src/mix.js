@@ -7,12 +7,12 @@ const layerMapping = {
   samples: {
     renderer: Renderers.samples,
     painter: Painters.moving,
-    zIndex: 2,
+    zIndex: 1,
   },
   background: {
     renderer: Renderers.background,
     painter: Painters.background,
-    zIndex: 1,
+    zIndex: 2,
   },
   default: {
     renderer: Renderers.samples,

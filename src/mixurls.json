@@ -1,3 +1,54 @@
 {
-    "mix01": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484604832&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+    "mix01": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484604832&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix02": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484612863&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix03": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484616925&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix04": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484622907&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix05": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484640853&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix06": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484647423&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix07": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/484657281&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix08": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/489754923&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix09": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/497529762&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix10": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/504640230&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix11": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/515562657&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix12": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/517651365&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix13": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/535915974&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix14": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/538429368&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix15": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/545859603&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix16": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/559121799&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix17": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/564978075&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix18": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/573246168&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix19": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/580659255&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix20": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/587796621&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix21": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/595308516&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix22": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/602492460&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix23": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/609639471&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix24": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/616049109&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix25": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/622787589&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix26": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/630548250&color=%231d1815&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+    
 }
