@@ -41,7 +41,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'modem_ website'
+      template: 'src/index.html'
     }),
     new CopyPlugin([
       { from: 'src/assets', to: 'assets' }

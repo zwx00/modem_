@@ -1,10 +1,10 @@
+/* global SC */
+
 import * as PIXI from 'pixi.js';
-
 import * as Menu from './menu.js';
-
 import * as MixCodeFactory from './mix.js';
-
 import AssetData from './assets/asset-data.json';
+import MixUrls from './mixurls.json';
 
 PIXI.utils.sayHello();
 
@@ -39,6 +39,44 @@ const getAssets = (assetsData, mix, layer) => {
   );
 };
 
+const injectSoundcloud = async (src) => {
+  const iframe = document.createElement('iframe');
+
+  iframe.id = 'sc-widget';
+
+  iframe.setAttribute('allow', 'autoplay');
+
+  iframe.src = src;
+
+  document.body.appendChild(iframe);
+
+  const widget = SC.Widget(iframe);
+  const graphics = new PIXI.Graphics();
+
+  graphics.lineStyle(5, 0xffff1a);
+
+  graphics.beginFill(0xffff1a, 1);
+  graphics.drawPolygon(25, 120, 25 + 80, 120 + 50, 25, 120 + 100);
+
+  graphics.endFill();
+  const container = new PIXI.Container();
+
+  container.addChild(graphics);
+
+  container.buttonMode = true;
+  container.interactive = true;
+  container.zIndex = 2000;
+
+  app.stage.addChild(container);
+
+  widget.bind(SC.Widget.Events.READY, () => {
+    container.on('pointerdown', () => {
+      console.log(':: playing audio');
+      widget.play();
+    });
+  });
+};
+
 const renderPage = () => {
   renderContainers.menu = Menu.renderMenu([
     'home',
@@ -53,6 +91,10 @@ const renderPage = () => {
   let mixName = window.location.hash.replace('#', '');
   if (mixName === '') {
     mixName = 'mix01';
+  }
+
+  if (mixName in MixUrls) {
+    injectSoundcloud(MixUrls[mixName]);
   }
 
   const PageRenderer = MixCodeFactory.getMixCode(mixName);

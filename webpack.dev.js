@@ -9,6 +9,7 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   devServer: {
+    https: true,
     contentBase: path.join(__dirname, 'dist'),
     before (app, server, compiler) {
       app
@@ -26,7 +27,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'modem_ website'
+      title: 'modem_ website',
+      template: 'src/index.html',
     })
   ]
 };

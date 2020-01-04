@@ -52,16 +52,12 @@ class MovingSpritePainter {
 
     function onDragStart (event) {
       this.data = event.data;
-      this.alpha = 0.8;
       this.dragging = true;
     }
 
     function onDragEnd () {
-      this.alpha = 1;
       this.dragging = false;
       this.data = null;
-      this.sprite.scale.x *= 1.25;
-      this.sprite.scale.y *= 1.25;
     }
 
     function onDragMove () {
