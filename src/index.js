@@ -81,7 +81,6 @@ const injectSoundcloud = async (src, targetContainer) => {
   targetContainer.addChild(container);
 
   widget.bind(SC.Widget.Events.READY, () => {
-
     container.on('pointerdown', () => {
       const gfx = new PIXI.Graphics();
       gfx.lineStyle(5, 0xffff1a);
@@ -144,12 +143,7 @@ const changeMix = (difference) => {
   if (window.location.hash !== '') {
     const mixNum = Number(window.location.hash.replace('#mix', ''));
 
-    if (difference > 0 && mixNum + difference <= MIX_COUNT) {
-      window.location.hash = `#mix${mixNum + difference}`;
-      renderPage();
-    }
-
-    if (difference < 0 && mixNum + difference > 0) {
+    if ((difference < 0 && mixNum + difference > 0) || (difference > 0 && mixNum + difference <= MIX_COUNT)) {
       const paddedMixNum = `0000${mixNum + difference}`.slice(-2);
 
       window.location.hash = `#mix${paddedMixNum}`;
