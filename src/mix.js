@@ -12,7 +12,7 @@ const layerMapping = {
   background: {
     renderer: Renderers.background,
     painter: Painters.background,
-    zIndex: 2,
+    zIndex: 3,
   },
   default: {
     renderer: Renderers.samples,
@@ -32,7 +32,7 @@ const layerMapping = {
   mist: {
     renderer: Renderers.background,
     painter: Painters.mist,
-    zIndex: 3,
+    zIndex: 2,
   }
 };
 
