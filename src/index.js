@@ -21,8 +21,13 @@ document.body.appendChild(app.view);
 
 /* css for fullscreen */
 document.body.style.overflow = 'hidden';
+document.body.style)] overflow = 'hidden';
+
 document.body.style.padding = 0;
 document.body.style.margin = 0;
+document.body.style.width = "100%";
+document.body.style.height = "100%";
+
 
 /* config */
 app.renderer.backgroundColor = 0xA9A9A9;
