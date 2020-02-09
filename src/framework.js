@@ -33,7 +33,7 @@ const paintSprite = function (assetDefinition, container) {
 
       ticker.add(currentSpritePainter.updateSprite.bind(currentSpritePainter));
 
-      container.addChild(sprite);
+      container.addChild(currentSpritePainter.sprite);
     });
 };
 

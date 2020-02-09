@@ -129,62 +129,6 @@ const injectSoundcloud = async (src, targetContainer) => {
       widget.seekTo(duration)
     })
   })
-
-
-  let splashbutton = new PIXI.Graphics();
-  const container3 = new PIXI.Container();
-
-  targetContainer.addChild(container3);
-
-  container3.buttonMode = true;
-  container3.interactive = true;
-  container3.zIndex = 3001;
-
-  container3.addChild(splashbutton);
-
-  splashbutton.interactive = true;
-  splashbutton.zIndex = 3001;
-
-  splashbutton.position.set(0, 96);
-
-  splashbutton.lineStyle(24, 0xffff1a)
-    .moveTo(0, 0)
-    .lineTo(0, 120)
-
-  container2.hitArea = new PIXI.Rectangle(0, 1050, 2000, 1050);
-
-  container3.mouseover = (mouseData) => {
-    splashbutton.tint = 0xffffff;
-  };
-
-  container3.mouseout = (mouseData) => {
-    splashbutton.tint = 0xffff1a;
-  };
-
-
-  let menubutton = new PIXI.Graphics();
-
-  container.addChild(menubutton);
-
-  menubutton.buttonMode = true;
-  menubutton.interactive = true;
-  menubutton.zIndex = 3002;
-
-  menubutton.position.set(0, 0);
-
-  menubutton.lineStyle(25, 0xffff1a)
-    .moveTo(0, 0)
-    .lineTo(0, 84)
-
-  menubutton.interactive = true;
-
-  menubutton.mouseover = (mouseData) => {
-    menubutton.tint = 0xffffff;
-  };
-
-  menubutton.mouseout = (mouseData) => {
-    menubutton.tint = 0xffff1a;
-  };
 };
 
 const renderPage = () => {
