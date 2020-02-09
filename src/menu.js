@@ -3,24 +3,25 @@ import * as PIXI from 'pixi.js';
 const constructTextEntry = (textContent) => {
   const text = new PIXI.Text(textContent, {
     fontFamily: 'Arial',
-    fontSize: 24,
+    fontSize: 23,
     fill: 'black',
-    align: 'left'
+    fontStretch: 'extra-condensed'
   });
 
   const textBG = new PIXI.Sprite(PIXI.Texture.WHITE);
 
-  textBG.width = text.width;
-  textBG.height = text.height;
+  text.x = 16;
+  textBG.width = 130;
+  textBG.height = 28;
 
-  text.interactive = true;
+  textBG.interactive = true;
   textBG.tint = 0xffff1a;
 
-  text.mouseover = (mouseData) => {
+  textBG.mouseover = (mouseData) => {
     textBG.tint = 0xffffff;
   };
 
-  text.mouseout = (mouseData) => {
+  textBG.mouseout = (mouseData) => {
     textBG.tint = 0xffff1a;
   };
   const cage = new PIXI.Container();
