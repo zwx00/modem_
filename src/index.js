@@ -160,7 +160,7 @@ const injectSoundcloud = async (src, targetContainer) => {
   })
 };
 
-const renderPage = (first=true) => {
+const renderPage = () => {
   app.stage.removeChild(backgroundContainer);
   backgroundContainer = new PIXI.Container();
   backgroundContainer.sortableChildren = true;
@@ -193,7 +193,7 @@ const renderPage = (first=true) => {
 
   app.stage.addChild(backgroundContainer);
 
-  if (mixName in MixUrls && first) {
+  if (mixName in MixUrls) {
     injectSoundcloud(MixUrls[mixName], backgroundContainer);
   }
 
@@ -223,7 +223,7 @@ window.onresize = () => {
     app.height = window.innerHeight;
     app.width = window.innerWidth;
     app.resize(window.innerHeight, window.innerWidth);
-    renderPage(false);
+    renderPage();
   }, 250);  
 };
 
