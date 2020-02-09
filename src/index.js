@@ -84,7 +84,7 @@ const injectSoundcloud = async (src, targetContainer) => {
 
   pauseGfx.position.set(0, 0);
 
-  pauseGfx.lineStyle(5, 0xffff1a);
+  pauseGfx.lineStyle(2, 0xffff1a);
   pauseGfx.beginFill(0xffff1a, 1);
 
   pauseGfx.drawRect(0, 10, 25, 80);

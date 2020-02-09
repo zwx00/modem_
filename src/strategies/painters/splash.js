@@ -19,39 +19,41 @@ class SplashPainter {
     };
 
     // this.spriteSplash
-    this.spriteSplash.scale.set(0.5, 0.5);
+    this.spriteSplash.scale.set(0.55, 0.55);
 
-    this.spriteSplash.y = 100;
+    this.spriteSplash.y = 70;
     this.spriteSplash.x = 0;
 
     this.spriteSplash.interactive = true;
 
     const splashbutton = new PIXI.Graphics();
 
-    splashbutton.lineStyle(20, 0xffff1a);
-    splashbutton.position.set(0, 120);
+    splashbutton.lineStyle(30, 0xffff1a);
+    splashbutton.position.set(0, 95);
     splashbutton.moveTo(0, 0);
-    splashbutton.lineTo(0, 120);
+    splashbutton.lineTo(0, 116);
 
     const splashcontainer = new PIXI.Container();
-
+    
     splashcontainer.interactive = true;
     splashcontainer.buttonMode = true;
     splashcontainer.hitArea = new PIXI.Rectangle(0, 120, 50, 120);
     splashcontainer.on('mouseover', (e) => {
+
       if (this.spriteSplash.x < -10 ) {
-        this.spriteData.deltax = 10;
+        this.spriteData.deltax = 100;
       };
     })
+
 
     splashcontainer.addChild(splashbutton);
     this.sprite.addChild(splashcontainer);
 
     this.onTimepass = () => {
-      this.spriteData.deltax = -10;
+      this.spriteData.deltax = -100;
     };
 
-    setTimeout(this.onTimepass.bind(this), 2000);
+    setTimeout(this.onTimepass.bind(this), 8000);
   }
 
   updateSprite(delta) {
@@ -59,13 +61,22 @@ class SplashPainter {
 
     if (this.spriteSplash.x < -800 && this.spriteData.deltax < 0) {
       this.spriteData.deltax = 0;
+      this.spriteSplash.mouseout = (e) => {
+      }
     }
-
+    
 
     if (this.spriteSplash.x > -10 && this.spriteData.deltax > 0) {
       this.spriteData.deltax = 0;
-      setTimeout(this.onTimepass.bind(this), 2000);
-
+      this.spriteSplash.mouseover = (e) => {
+        clearTimeout(this.timeMovetimeout);
+      }
+      this.spriteSplash.mouseout = (e) => {
+        if (e.data.global.x > 30) {
+          this.timeMovetimeout = setTimeout(this.onTimepass.bind(this), 2000);
+        }
+      }
+  
     }
 
   }
