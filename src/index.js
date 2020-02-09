@@ -66,36 +66,64 @@ const injectSoundcloud = async (src, targetContainer) => {
   document.body.appendChild(iframe);
 
   widget = SC.Widget(iframe);
-  const graphics = new PIXI.Graphics();
 
-  graphics.lineStyle(5, 0xffff1a);
 
-  graphics.beginFill(0xffff1a, 1);
-  graphics.drawPolygon(25, 975, 25 + 80, 975 + 50, 25, 975 + 100);
+  
+  const playGfx = new PIXI.Graphics();
+  playGfx.position.set(0, 0);
 
-  graphics.endFill();
-  const container = new PIXI.Container();
+  playGfx.lineStyle(5, 0xffff1a);
 
-  container.addChild(graphics);
+  playGfx.beginFill(0xffff1a, 1);
+  playGfx.drawPolygon(0, 0, 80, 50, 0, 100);
 
-  container.buttonMode = true;
-  container.interactive = true;
-  container.zIndex = 2000;
+  playGfx.endFill();
 
-  targetContainer.addChild(container);
+  const pauseGfx = new PIXI.Graphics();
+
+  pauseGfx.position.set(0, 0);
+
+  pauseGfx.lineStyle(5, 0xffff1a);
+  pauseGfx.beginFill(0xffff1a, 1);
+
+  pauseGfx.drawRect(0, 10, 25, 80);
+  pauseGfx.drawRect(45, 10, 25, 80);
+
+  pauseGfx.endFill();
+
+  const playPauseSprite = new PIXI.AnimatedSprite( 
+    [
+      app.renderer.generateTexture(playGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 100)),
+      app.renderer.generateTexture(pauseGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 100))
+    ]
+  );
+
+  playPauseSprite.gotoAndStop(0);
+  playPauseSprite.setTransform()
+  playPauseSprite.x = 500;
+  playPauseSprite.y = 500;
+
+  playPauseSprite.zIndex = 12000;
+  playPauseSprite.interactive = true;
+  playPauseSprite.buttonMode = true;
+
+  playPauseSprite.x = 25;
+  playPauseSprite.y = window.innerHeight - 150;
+  targetContainer.addChild(playPauseSprite);
+
+  let playing = false;
 
   widget.bind(SC.Widget.Events.READY, () => {
-    container.on('pointerdown', () => {
-      const gfx = new PIXI.Graphics();
-      gfx.lineStyle(5, 0xffff1a);
-
-      gfx.beginFill(0xffffff, 1);
-      gfx.drawPolygon(25, 975, 25 + 80, 975 + 50, 25, 975 + 100);
-
-      gfx.endFill();
-      container.addChild(gfx);
-      console.log(':: playing audio');
-      widget.play();
+    playPauseSprite.on('pointerdown', () => {
+      if (playing) {
+        widget.pause();
+        playPauseSprite.gotoAndStop(0);
+        playing = false;
+      } else {
+        playing = true;
+        playPauseSprite.gotoAndStop(1);
+        widget.play();
+      }
     });
   });
 
@@ -122,11 +150,11 @@ const injectSoundcloud = async (src, targetContainer) => {
       .lineTo(progress.relativePosition * window.innerWidth, 0)
   })
 
-  container2.hitArea = new PIXI.Rectangle(0, 1050, 2000, 1050);
+  container2.hitArea = new PIXI.Rectangle(0, window.innerHeight - 50, window.innerWidth, 50);
 
   container2.on('pointerdown', (e) => {
     widget.getDuration(function (duration) {
-      widget.seekTo(duration)
+      widget.seekTo(duration * e.data.global.x / window.innerWidth);
     })
   })
 };

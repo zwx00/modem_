@@ -32,18 +32,13 @@ class SplashPainter {
     splashbutton.position.set(0, 120);
     splashbutton.moveTo(0, 0);
     splashbutton.lineTo(0, 120);
-    
-    const renderer = PIXI.autoDetectRenderer();
 
-    const texture = renderer.generateTexture(splashbutton);
-
-    const splashcontainer = new PIXI.Sprite(texture);
+    const splashcontainer = new PIXI.Container();
 
     splashcontainer.interactive = true;
     splashcontainer.buttonMode = true;
     splashcontainer.hitArea = new PIXI.Rectangle(0, 120, 50, 120);
     splashcontainer.on('mouseover', (e) => {
-      console.log('over');
       if (this.spriteSplash.x < -10 ) {
         this.spriteData.deltax = 10;
       };
