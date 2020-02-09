@@ -11,15 +11,14 @@ const randomElement = (arr, exclude = []) => {
   return candidate;
 };
 
-const samplesLayerRenderer = async function (fileNames, container) {
+const samplesLayerRenderer = async function (fileNames, container, rootStage) {
   let painted = [];
-
   while (true) {
     await Utils.sleep(Math.random() * 5000);
 
     const selectedFile = randomElement(fileNames, painted);
 
-    Framework.paintSprite.bind(this)(selectedFile, container);
+    Framework.paintSprite.bind(this)(selectedFile, container, rootStage);
     painted.push(selectedFile.filename);
 
     if (painted.length > 13) {

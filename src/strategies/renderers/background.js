@@ -1,8 +1,9 @@
 import Framework from '~/framework';
 
-const backgroundLayerRenderer = function (fileNames, container) {
+const backgroundLayerRenderer = function (fileNames, container, rootStage) {
+
   fileNames.forEach((filename) => {
-    Framework.paintSprite.bind(this)(filename, container);
+    Framework.paintSprite.bind(this)(filename, container, rootStage);
   });
 };
 

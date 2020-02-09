@@ -7,7 +7,7 @@ import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
 import _ from 'lodash';
 
-const MIX_COUNT = 26;
+const MIX_COUNT = 30;
 
 PIXI.utils.sayHello();
 
@@ -94,8 +94,8 @@ const injectSoundcloud = async (src, targetContainer) => {
 
   const playPauseSprite = new PIXI.AnimatedSprite( 
     [
-      app.renderer.generateTexture(playGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 100)),
-      app.renderer.generateTexture(pauseGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 100))
+      app.renderer.generateTexture(playGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 120)),
+      app.renderer.generateTexture(pauseGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 120))
     ]
   );
 
@@ -187,7 +187,7 @@ const renderPage = () => {
     container.sortableChildren = true;
     container.zIndex = layer.zIndex;
     const files = getAssets(AssetData, mixName, layer.name);
-    layer.renderer.bind(layer)(files, container);
+    layer.renderer.bind(layer)(files, container, app);
     backgroundContainer.addChild(container);
   }
 

@@ -21,7 +21,7 @@ const getSprite = (resource, meta) => {
   }
 };
 
-const paintSprite = function (assetDefinition, container) {
+const paintSprite = function (assetDefinition, container, rootStage) {
   new PIXI.Loader()
     .add(assetDefinition.filename)
     .load((_, resources) => {
@@ -29,7 +29,7 @@ const paintSprite = function (assetDefinition, container) {
       
       sprite._filename = assetDefinition.filename;
       // eslint-disable-next-line
-      const currentSpritePainter = new this.painter(sprite);
+      const currentSpritePainter = new this.painter(sprite, rootStage);
 
       ticker.add(currentSpritePainter.updateSprite.bind(currentSpritePainter));
 
