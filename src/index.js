@@ -5,12 +5,13 @@ import * as Menu from './menu.js';
 import * as MixCodeFactory from './mix.js';
 import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
+import _ from 'lodash';
 
 const MIX_COUNT = 26;
 
 PIXI.utils.sayHello();
 
-const app = new PIXI.Application({
+let app = new PIXI.Application({
   width: window.innerWidth,
   height: window.innerHeight,
   backgroundColor: 0xffffff,
@@ -56,7 +57,7 @@ const injectSoundcloud = async (src, targetContainer) => {
     document.body.removeChild(oldIframe);
   }
   const iframe = document.createElement('iframe');
-
+  iframe.style.display = 'none'
   iframe.id = 'sc-widget';
 
   iframe.setAttribute('allow', 'autoplay');
@@ -159,7 +160,7 @@ const injectSoundcloud = async (src, targetContainer) => {
   })
 };
 
-const renderPage = () => {
+const renderPage = (first=true) => {
   app.stage.removeChild(backgroundContainer);
   backgroundContainer = new PIXI.Container();
   backgroundContainer.sortableChildren = true;
@@ -192,7 +193,7 @@ const renderPage = () => {
 
   app.stage.addChild(backgroundContainer);
 
-  if (mixName in MixUrls) {
+  if (mixName in MixUrls && first) {
     injectSoundcloud(MixUrls[mixName], backgroundContainer);
   }
 
@@ -213,6 +214,17 @@ const changeMix = (difference) => {
       renderPage();
     }
   }
+};
+
+let tout;
+window.onresize = () => {  
+  clearTimeout(tout);
+  tout = setTimeout(() => {
+    app.height = window.innerHeight;
+    app.width = window.innerWidth;
+    app.resize(window.innerHeight, window.innerWidth);
+    renderPage(false);
+  }, 250);  
 };
 
 document.addEventListener('keydown', (e) => {
