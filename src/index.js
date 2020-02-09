@@ -145,8 +145,8 @@ const injectSoundcloud = async (src, targetContainer) => {
 
   widget.bind(SC.Widget.Events.PLAY_PROGRESS, (progress) => {
     myGraph.clear();
-    myGraph.position.set(0, 1110);
-    myGraph.lineStyle(20, 0xffff1a)
+    myGraph.position.set(0, window.innerHeight);
+    myGraph.lineStyle(40, 0xffff1a)
       .moveTo(0, 0)
       .lineTo(progress.relativePosition * window.innerWidth, 0)
   })
