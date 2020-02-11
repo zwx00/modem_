@@ -19,10 +19,10 @@ class SplashPainter {
     };
 
     // this.spriteSplash
-    this.spriteSplash.scale.set(0.55, 0.55);
+    this.spriteSplash.scale.set(0.425, 0.425);
 
-    this.spriteSplash.y = 70;
-    this.spriteSplash.x = 0;
+    this.spriteSplash.y = 80;
+    this.spriteSplash.x = 11;
 
     this.spriteSplash.interactive = true;
 
