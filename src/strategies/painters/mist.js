@@ -18,8 +18,8 @@ class MistPainter {
     this.sprite.anchor.set(0.5);
 
     this.spriteData = {
-      xChange: Math.random() * Utils.randomDirection() * 0.0085,
-      yChange: Math.random() * Utils.randomDirection() * 0.0085,
+      xChange: Math.random() * Utils.randomDirection() * 0.025,
+      yChange: Math.random() * Utils.randomDirection() * 0.025,
       alpha: Math.random() * 37,
       alphaChange: Math.random()
     };
