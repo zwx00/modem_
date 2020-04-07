@@ -166,9 +166,6 @@ const renderPage = () => {
   backgroundContainer.sortableChildren = true;
 
   renderContainers.menu = Menu.renderMenu([
-    'home',
-    'dial-up',
-    'radio show',
   ]);
 
   /* routing ... */
