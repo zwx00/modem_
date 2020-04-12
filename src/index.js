@@ -50,6 +50,42 @@ let backgroundContainer = new PIXI.Container();
 
 let widget = null;
 
+//gumba naprej nazaj
+const constructTextEntry = (textContent) => {
+  const text = new PIXI.Text(textContent, {
+    fontFamily: 'Arial',
+    fontSize: 35,
+    fill: 'black',
+    fontStretch: 'extra-condensed',
+  });
+  text.anchor.set(0.5);
+  const txtBG = new PIXI.Sprite(PIXI.Texture.WHITE);
+  txtBG.anchor.set(0.5);
+  txtBG.tint = 0xffff1a;
+  txtBG.width = text.height,txtBG.height = text.height;
+  const cage = new PIXI.Container();
+  cage.interactive = true;
+  cage.buttonMode = true;
+
+  cage.addChild(txtBG,text);
+  return cage;
+};
+
+const fwdButton = constructTextEntry('>');
+
+const bwButton = constructTextEntry('<');
+fwdButton.zIndex = 1200
+bwButton.zIndex = 1200;
+bwButton.x = window.innerWidth - 60;
+bwButton.y = window.innerHeight - 65;
+fwdButton.x = window.innerWidth - 60;
+fwdButton.y = window.innerHeight - 120;
+app.stage.addChild(fwdButton, bwButton);
+
+
+
+//
+
 const injectSoundcloud = async (src, targetContainer) => {
   const oldIframe = document.querySelector('body > iframe');
   console.log(oldIframe);
@@ -67,7 +103,7 @@ const injectSoundcloud = async (src, targetContainer) => {
   document.body.appendChild(iframe);
 
   widget = SC.Widget(iframe);
-
+  
 
   
   const playGfx = new PIXI.Graphics();
@@ -76,7 +112,7 @@ const injectSoundcloud = async (src, targetContainer) => {
   playGfx.lineStyle(5, 0xffff1a);
 
   playGfx.beginFill(0xffff1a, 1);
-  playGfx.drawPolygon(0, 0, 80, 50, 0, 100);
+  playGfx.drawPolygon(0, 10, 80, 55, 0, 100);
 
   playGfx.endFill();
 
@@ -91,7 +127,8 @@ const injectSoundcloud = async (src, targetContainer) => {
   pauseGfx.drawRect(45, 10, 25, 80);
 
   pauseGfx.endFill();
-
+  
+  
   const playPauseSprite = new PIXI.AnimatedSprite( 
     [
       app.renderer.generateTexture(playGfx, 0, 1, new PIXI.Rectangle(0, 0, 100, 120)),
@@ -100,7 +137,6 @@ const injectSoundcloud = async (src, targetContainer) => {
   );
 
   playPauseSprite.gotoAndStop(0);
-  playPauseSprite.setTransform()
   playPauseSprite.x = 500;
   playPauseSprite.y = 500;
 
@@ -200,7 +236,7 @@ const renderPage = () => {
 
 renderPage();
 
-const changeMix = (difference) => {
+function changeMix(difference) {
   if (window.location.hash !== '') {
     const mixNum = Number(window.location.hash.replace('#mix', ''));
 
@@ -212,6 +248,8 @@ const changeMix = (difference) => {
     }
   }
 };
+
+
 
 let tout;
 window.onresize = () => {  
@@ -233,3 +271,12 @@ document.addEventListener('keydown', (e) => {
     changeMix(+1);
   }
 });
+
+function changeMixFwd() {
+  changeMix(1);
+}
+function changeMixBw() {
+  changeMix(-1);
+}
+fwdButton.on("click", changeMixFwd);
+bwButton.on("click", changeMixBw);
