@@ -54,7 +54,7 @@ let widget = null;
 const constructTextEntry = (textContent) => {
   const text = new PIXI.Text(textContent, {
     fontFamily: 'Arial',
-    fontSize: 35,
+    fontSize: 55,
     fill: 'black',
     fontStretch: 'extra-condensed',
   });
@@ -67,6 +67,14 @@ const constructTextEntry = (textContent) => {
   cage.interactive = true;
   cage.buttonMode = true;
 
+  cage.mouseover = (mouseData) => {
+    txtBG.tint = 0xffffff;
+  };
+
+  cage.mouseout = (mouseData) => {
+    txtBG.tint = 0xffff1a;
+  };
+
   cage.addChild(txtBG,text);
   return cage;
 };
@@ -76,10 +84,10 @@ const fwdButton = constructTextEntry('>');
 const bwButton = constructTextEntry('<');
 fwdButton.zIndex = 1200
 bwButton.zIndex = 1200;
-bwButton.x = window.innerWidth - 60;
-bwButton.y = window.innerHeight - 65;
-fwdButton.x = window.innerWidth - 60;
-fwdButton.y = window.innerHeight - 120;
+bwButton.x = window.innerWidth - 31;
+bwButton.y = window.innerHeight - 80;
+fwdButton.x = window.innerWidth - 31;
+fwdButton.y = window.innerHeight - 160;
 app.stage.addChild(fwdButton, bwButton);
 
 
