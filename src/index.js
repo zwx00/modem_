@@ -7,7 +7,7 @@ import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
 import _ from 'lodash';
 
-const MIX_COUNT = 30;
+const MIX_COUNT = 35;
 
 PIXI.utils.sayHello();
 
@@ -112,8 +112,6 @@ const injectSoundcloud = async (src, targetContainer) => {
 
   widget = SC.Widget(iframe);
   
-
-  
   const playGfx = new PIXI.Graphics();
   playGfx.position.set(0, 0);
 
@@ -213,7 +211,6 @@ const renderPage = () => {
   ]);
 
   /* routing ... */
-
   if (window.location.hash === '') {
     window.location.hash = `#mix${MIX_COUNT}`;
   }
@@ -223,6 +220,7 @@ const renderPage = () => {
   const PageRenderer = MixCodeFactory.getMixCode(mixName);
 
   const layers = PageRenderer.getLayers();
+
   for (const layer of layers) {
     const container = new PIXI.Container();
     container.sortableChildren = true;
@@ -241,7 +239,6 @@ const renderPage = () => {
   renderContainers.menu.zIndex = 1000;
   app.stage.addChild(renderContainers.menu);
 };
-
 renderPage();
 
 function changeMix(difference) {

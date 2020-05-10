@@ -2,6 +2,10 @@ import Utils from '~/utils';
 import Framework from '~/framework';
 
 const randomElement = (arr, exclude = []) => {
+  if (arr.length === 1) {
+    return arr[0];
+  }
+
   let candidate;
   while (candidate === undefined || exclude.includes(candidate.filename)) {
     const selectedIndex = Math.floor(Math.random() * arr.length);
@@ -12,6 +16,7 @@ const randomElement = (arr, exclude = []) => {
 };
 
 const samplesLayerRenderer = async function (fileNames, container, rootStage) {
+
   let painted = [];
   while (true) {
     await Utils.sleep(Math.random() * 5000);
