@@ -7,7 +7,7 @@ import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
 import _ from 'lodash';
 
-const MIX_COUNT = 35;
+const MIX_COUNT = 36;
 
 PIXI.utils.sayHello();
 
