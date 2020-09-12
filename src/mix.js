@@ -34,10 +34,6 @@ const layerMapping = {
   }
 };
 
-const getMixImports = () => {
-  return require.context('babel-loader!./assets', true, /_specific.js/);
-};
-
 const getMixCode = (AssetData, mix) => {
   const mixAbstraction = {
     getLayers () {
@@ -65,13 +61,7 @@ const getLayerRenderer = (mix, layer) => {
     layerRenderer = layerMapping[layer];
     console.log(`:: ${layer} renderer found`);
   }
-
-  const imports = getMixImports();
-  const filename = `./${mix}/${layer}/_specific.js`;
-  if (imports.keys().includes(filename)) {
-    const importedModule = imports(filename);
-    Object.assign(layerRenderer, importedModule.default);
-  }
+  
   return layerRenderer;
 };
 
