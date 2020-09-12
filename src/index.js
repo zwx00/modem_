@@ -3,7 +3,6 @@
 import * as PIXI from 'pixi.js';
 import * as Menu from './menu.js';
 import * as MixCodeFactory from './mix.js';
-import AssetData from './assets/asset-data.json';
 import MixUrls from './mixurls.json';
 import _ from 'lodash';
 
@@ -203,41 +202,45 @@ const injectSoundcloud = async (src, targetContainer) => {
 };
 
 const renderPage = () => {
-  app.stage.removeChild(backgroundContainer);
-  backgroundContainer = new PIXI.Container();
-  backgroundContainer.sortableChildren = true;
+  fetch(
+    `${IMAGE_HOST}/assets/asset-data.json`
+  ).then(response => response.json()).then(AssetData => {
+    app.stage.removeChild(backgroundContainer);
+    backgroundContainer = new PIXI.Container();
+    backgroundContainer.sortableChildren = true;
 
-  renderContainers.menu = Menu.renderMenu([
-  ]);
+    renderContainers.menu = Menu.renderMenu([
+    ]);
 
-  /* routing ... */
-  if (window.location.hash === '') {
-    window.location.hash = `#mix${MIX_COUNT}`;
-  }
+    /* routing ... */
+    if (window.location.hash === '') {
+      window.location.hash = `#mix${MIX_COUNT}`;
+    }
 
-  const mixName = window.location.hash.replace('#', '');
+    const mixName = window.location.hash.replace('#', '');
 
-  const PageRenderer = MixCodeFactory.getMixCode(mixName);
+    const PageRenderer = MixCodeFactory.getMixCode(AssetData, mixName);
 
-  const layers = PageRenderer.getLayers();
+    const layers = PageRenderer.getLayers();
 
-  for (const layer of layers) {
-    const container = new PIXI.Container();
-    container.sortableChildren = true;
-    container.zIndex = layer.zIndex;
-    const files = getAssets(AssetData, mixName, layer.name);
-    layer.renderer.bind(layer)(files, container, app);
-    backgroundContainer.addChild(container);
-  }
+    for (const layer of layers) {
+      const container = new PIXI.Container();
+      container.sortableChildren = true;
+      container.zIndex = layer.zIndex;
+      const files = getAssets(AssetData, mixName, layer.name);
+      layer.renderer.bind(layer)(files, container, app);
+      backgroundContainer.addChild(container);
+    }
 
-  app.stage.addChild(backgroundContainer);
+    app.stage.addChild(backgroundContainer);
 
-  if (mixName in MixUrls) {
-    injectSoundcloud(MixUrls[mixName], backgroundContainer);
-  }
+    if (mixName in MixUrls) {
+      injectSoundcloud(MixUrls[mixName], backgroundContainer);
+    }
 
-  renderContainers.menu.zIndex = 1000;
-  app.stage.addChild(renderContainers.menu);
+    renderContainers.menu.zIndex = 1000;
+    app.stage.addChild(renderContainers.menu);
+  })
 };
 renderPage();
 

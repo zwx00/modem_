@@ -3,6 +3,7 @@ const express = require('express');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const prodWebpackConfig = require('./webpack');
+const webpack = require('webpack');
 
 module.exports = {
   ...prodWebpackConfig,
@@ -25,6 +26,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
+    new webpack.DefinePlugin({
+      IMAGE_HOST: JSON.stringify(process.env.LOCAL ? 'https://localhost:8080' : 'https://m-o-d-e-m.s3.eu-central-1.amazonaws.com')
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'modem_ website',

@@ -1,8 +1,6 @@
 import * as Renderers from 'Strategies/Renderers';
 import * as Painters from 'Strategies/Painters';
 
-import AssetData from '~/assets/asset-data.json';
-
 const layerMapping = {
   samples: {
     renderer: Renderers.samples,
@@ -40,7 +38,7 @@ const getMixImports = () => {
   return require.context('babel-loader!./assets', true, /_specific.js/);
 };
 
-const getMixCode = (mix) => {
+const getMixCode = (AssetData, mix) => {
   const mixAbstraction = {
     getLayers () {
       const layers = Object.keys(AssetData[mix]);

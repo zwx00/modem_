@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
@@ -39,6 +40,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      IMAGE_HOST: JSON.stringify('https://m-o-d-e-m.s3.eu-central-1.amazonaws.com')
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'modem',

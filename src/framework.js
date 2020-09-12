@@ -22,12 +22,13 @@ const getSprite = (resource, meta) => {
 };
 
 const paintSprite = function (assetDefinition, container, rootStage) {
-  new PIXI.Loader()
-    .add(assetDefinition.filename)
+  const fname = `${IMAGE_HOST}/${assetDefinition.filename}`;
+  new PIXI.Loader(fname)
+    .add(fname)
     .load((_, resources) => {
-      const sprite = getSprite(resources[assetDefinition.filename], assetDefinition);
+      const sprite = getSprite(resources[fname], assetDefinition);
       
-      sprite._filename = assetDefinition.filename;
+      sprite._filename = fname;
       // eslint-disable-next-line
       const currentSpritePainter = new this.painter(sprite, rootStage);
 
