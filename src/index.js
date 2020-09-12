@@ -33,6 +33,11 @@ document.body.style.height = "100%";
 
 /* config */
 app.renderer.backgroundColor = 0xA9A9A9;
+// black square deterrant
+app.renderer.gl.texParameteri(
+  app.renderer.gl.TEXTURE_2D, app.renderer.gl.TEXTURE_WRAP_T, app.renderer.gl.CLAMP_TO_EDGE);
+app.renderer.gl.texParameteri(
+  app.renderer.gl.TEXTURE_2D, app.renderer.gl.TEXTURE_WRAP_S, app.renderer.gl.CLAMP_TO_EDGE);
 app.stage.sortableChildren = true;
 
 const renderContainers = {
