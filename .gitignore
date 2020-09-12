@@ -15,6 +15,6 @@ yarn.lock
 
 **/*.spritesheet.png
 
-src/assets/asset-data.json
+src/assets/
 
 tags
