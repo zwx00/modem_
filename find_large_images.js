@@ -22,8 +22,14 @@ var Jimp = require('jimp');
       const pictures = fs.readdir(path.join('src/assets', mix.name, layer.name));
       (await pictures).filter(f => (f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg'))).map(async picture => {
         var image = new Jimp(path.join('src/assets', mix.name, layer.name, picture), function (err, image) {
-            if (image.bitmap.width > 3379 || image.bitmap.height > 3379) {
-              console.log(chalk.red(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is too large`));
+            if (err) {
+              console.log(err);
+            } else {
+              if (image.bitmap.width > 3379 || image.bitmap.height > 3379) {
+                console.log(chalk.red(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is too large`));
+              } else {
+                console.log(chalk.green(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is ok large`))
+              }
             }
         });
 
