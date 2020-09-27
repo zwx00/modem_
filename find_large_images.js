@@ -9,6 +9,17 @@ const path = require('path');
 const { kMaxLength } = require('buffer');
 var Jimp = require('jimp');
 
+
+var JimpPromise = (fName) => new Promise((resolve, reject) => {
+  new Jimp(fName, (err, image) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(image);
+    }
+  });
+});
+
 ((async () => {
   /*
    * entrypoint
@@ -20,21 +31,19 @@ var Jimp = require('jimp');
     (await layers).filter(d => d.isDirectory()).map(async layer => {
 
       const pictures = fs.readdir(path.join('src/assets', mix.name, layer.name));
-      (await pictures).filter(f => (f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg'))).map(async picture => {
-        var image = new Jimp(path.join('src/assets', mix.name, layer.name, picture), function (err, image) {
-            if (err) {
-              console.log(err);
-            } else {
-              if (image.bitmap.width > 3379 || image.bitmap.height > 3379) {
-                console.log(chalk.red(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is too large`));
-              } else {
-                console.log(chalk.green(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is ok large`))
-              }
-            }
-        });
 
-
-      })
+      for (const picture of (await pictures).filter(f => (f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg')))) {
+        try {
+          const jImage = await JimpPromise(path.join('src/assets', mix.name, layer.name, picture));
+          if (jImage.bitmap.width > 3379 || jImage.bitmap.height > 3379) {
+            console.log(chalk.red(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is too large`));
+          } else {
+            // console.log(chalk.green(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is ok large`))
+          }  
+        } catch (e) {
+          console.log(chalk.red(`:: couldnt open ${picture}`));
+        }
+      }
     });
   });
   /*
