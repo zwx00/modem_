@@ -1,10 +1,12 @@
 /* globals require, console */
 const fs = require('fs').promises;
+const fs_nopromise = require('fs');
 const chalk = require('chalk');
 const { convertGif } = require('./convert_gifs.js');
 const Promise = require('bluebird');
 const _ = require('lodash');
 const path = require('path');
+const { kMaxLength } = require('buffer');
 
 
 
@@ -28,8 +30,7 @@ const path = require('path');
             console.log(chalk.red(`:::: Rename ${picture} manually`));
           } else {
             const newPath = path.join('src/assets', mix.name, layer.name, `${rename}`);
-            const exists = await fs.exists(newPath);
-            if (exists) {
+            if (fs_nopromise.existsSync(newPath)) {
               console.log(chalk.red(`:::: Cannot copy ${picture}, ${rename} exists`));
             } else {
               await fs.rename(path.join('src/assets', mix.name, layer.name, picture), );
