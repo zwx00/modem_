@@ -28,8 +28,8 @@ const path = require('path');
             console.log(chalk.red(`:::: Rename ${picture} manually`));
           } else {
             const newPath = path.join('src/assets', mix.name, layer.name, `${rename}`);
-
-            if (fs.existsSync(newPath)) {
+            const exists = await fs.exists(newPath);
+            if (exists) {
               console.log(chalk.red(`:::: Cannot copy ${picture}, ${rename} exists`));
             } else {
               await fs.rename(path.join('src/assets', mix.name, layer.name, picture), );
