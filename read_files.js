@@ -80,7 +80,7 @@ const readFolderSafe = async (mix, layer) => {
   }
 
   const processedGifs = await Promise.map(gifs, async (file) => {
-    const spriteSheetName = file.replace('gif', 'spritesheet.png');
+    const spriteSheetName = file.replace(new RegExp('gif$'), 'spritesheet.png');
 
     if (files.includes(spriteSheetName)) {
       return undefined; // will be handled as spritesheet

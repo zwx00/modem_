@@ -8,4 +8,7 @@ if (fs.existsSync(outname)) {
   fs.unlinkSync(outname);
 }
 
-convertGif(fname);
+convertGif(fname).then(out => {
+  console.log(out);
+});
+
