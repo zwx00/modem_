@@ -24,8 +24,12 @@ const path = require('path');
 
         const rename = picture.match(/[A-Za-z0-9\.]/g).join('');
         if (rename != picture) {
-          await fs.rename(path.join('src/assets', mix.name, layer.name, picture), path.join('src/assets', mix.name, layer.name, `${rename}`));
-          console.log(`:: renaming ${picture} to ${rename}`);
+          if (rename.length < 4) {
+            console.log(chalk.red(`Rename ${picture} manually`));
+          } else {
+            await fs.rename(path.join('src/assets', mix.name, layer.name, picture), path.join('src/assets', mix.name, layer.name, `${rename}`));
+            console.log(`:: renaming ${picture} to ${rename}`);
+          }
         }
 
       })
