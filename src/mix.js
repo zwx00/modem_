@@ -1,6 +1,8 @@
 import * as Renderers from 'Strategies/Renderers';
 import * as Painters from 'Strategies/Painters';
 
+import AssetData from '~/assets/asset-data.json';
+
 const layerMapping = {
   samples: {
     renderer: Renderers.samples,
@@ -31,10 +33,15 @@ const layerMapping = {
     renderer: Renderers.background,
     painter: Painters.mist,
     zIndex: 2,
+  },
+  simp: {
+    renderer: Renderers.simpren,
+    painter: Painters.simp,
+    zIndex: 10,
   }
 };
 
-const getMixCode = (AssetData, mix) => {
+const getMixCode = (mix) => {
   const mixAbstraction = {
     getLayers () {
       const layers = Object.keys(AssetData[mix]);
@@ -61,7 +68,7 @@ const getLayerRenderer = (mix, layer) => {
     layerRenderer = layerMapping[layer];
     console.log(`:: ${layer} renderer found`);
   }
-  
+
   return layerRenderer;
 };
 

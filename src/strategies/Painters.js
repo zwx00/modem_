@@ -17,3 +17,7 @@ export {
 export {
   MistPainter as mist
 } from './painters/mist.js';
+
+export {
+  SimpPainter as simp
+} from './painters/simp.js';
