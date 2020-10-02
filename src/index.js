@@ -8,8 +8,7 @@ import _ from 'lodash';
 import * as Soundcloud from './soundcloud.js';
 import * as Switcher from './switcher.js';
 
-const MIX_COUNT = 36;
-
+const MIX_COUNT = 37;
 
 PIXI.utils.sayHello();
 
@@ -29,7 +28,6 @@ document.body.style.padding = 0;
 document.body.style.margin = 0;
 document.body.style.width = "100%";
 document.body.style.height = "100%";
-
 
 /* config */
 app.renderer.backgroundColor = 0xA9A9A9;
