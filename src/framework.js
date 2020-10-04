@@ -27,11 +27,11 @@ const paintSpritePrivate = function (texture, fname, assetDefinition, container,
     sprite._filename = fname;
     // eslint-disable-next-line
     const currentSpritePainter = new this.painter(sprite, rootStage);
-  
+
     ticker.add(currentSpritePainter.updateSprite.bind(currentSpritePainter));
-  
+
     container.addChild(currentSpritePainter.sprite);
-  
+
   } catch (e) {
     console.log(":::: could not build sprite for: " + fname);
   }

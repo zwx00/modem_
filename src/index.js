@@ -74,6 +74,12 @@ const renderPage = () => {
 
     const PageRenderer = MixCodeFactory.getMixCode(AssetData, mixName);
 
+    if (mixName == 'mix1000') {
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000 * 60 * 2);
+    }
+
     const layers = PageRenderer.getLayers();
 
     for (const layer of layers) {
@@ -98,14 +104,14 @@ const renderPage = () => {
 renderPage();
 
 let tout;
-window.onresize = () => {  
+window.onresize = () => {
   clearTimeout(tout);
   tout = setTimeout(() => {
     app.height = window.innerHeight;
     app.width = window.innerWidth;
     app.resize(window.innerHeight, window.innerWidth);
     renderPage();
-  }, 250);  
+  }, 250);
 };
 
 export {

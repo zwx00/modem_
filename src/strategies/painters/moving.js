@@ -27,16 +27,10 @@ class MovingSpritePainter {
     this.sprite.alpha = Math.random();
 
     this.sprite.width = i
-    this.sprite.height = sprite.height * ratio; 
+    this.sprite.height = sprite.height * ratio;
 
     this.sprite.x = Math.random() * this.surfaceWidth - sprite.width / 2;
     this.sprite.y = Math.random() * this.surfaceHeight - sprite.height / 2;
-
-    this.spriteData = {
-      xChange: Math.random() * Utils.randomDirection() * 0.0000005,
-      yChange: Math.random() * Utils.randomDirection() * 0.0000005,
-      rotationSpeed: Math.random() * 0.00000002
-    };
 
     this.sprite.interactive = true;
 
@@ -70,26 +64,6 @@ class MovingSpritePainter {
   }
 
   updateSprite (delta) {
-    this.sprite.rotation += delta * this.spriteData.rotationSpeed;
-
-    if (this.sprite.x + delta * this.spriteData.xChange > this.surfaceWidth) {
-      this.spriteData.xChange = -1 * this.spriteData.xChange;
-    }
-    if (this.sprite.y + delta * this.spriteData.yChange > this.surfaceHeight) {
-      this.spriteData.yChange = -1 * this.spriteData.yChange;
-    }
-
-    if (this.sprite.x + delta * this.spriteData.xChange < 0) {
-      this.spriteData.xChange = -1 * this.spriteData.xChange;
-    }
-    if (this.sprite.y + delta * this.spriteData.yChange < 0) {
-      this.spriteData.yChange = -1 * this.spriteData.yChange;
-    }
-
-    this.sprite.x += delta * this.spriteData.xChange;
-    this.sprite.y += delta * this.spriteData.yChange;
-
-  
   }
 }
 
