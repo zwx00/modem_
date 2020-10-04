@@ -45,8 +45,17 @@ class MovingSpritePainter {
       .on('pointermove', onDragMove);
 
     function onDragStart (event) {
+      if (this.clicked) {
+        this.scale.x *= 1.5;
+        this.scale.y *= 1.5;
+      }
       this.data = event.data;
       this.dragging = true;
+      this.clicked = true;
+
+      setTimeout(() => {
+        this.clicked = false;
+      }, 900);
     }
 
     function onDragEnd () {
