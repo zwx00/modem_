@@ -64,20 +64,21 @@ const renderPage = () => {
     renderContainers.menu = Menu.renderMenu([
     ]);
 
+    const mixName = window.location.hash.replace('#', '');
+    console.log(mixName);
+      
     Switcher.initSwitcher(app);
     /* routing ... */
     if (window.location.hash === '') {
       window.location.hash = `#mix${MIX_COUNT}`;
     }
 
-    const mixName = window.location.hash.replace('#', '');
-
     const PageRenderer = MixCodeFactory.getMixCode(AssetData, mixName);
 
     if (mixName == 'mix1000') {
       setTimeout(() => {
         window.location.reload()
-      }, 1000 * 60 * 2);
+      }, 1000 * 60 * 20);
     }
 
     const layers = PageRenderer.getLayers();

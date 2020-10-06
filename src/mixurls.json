@@ -71,6 +71,11 @@
 
     "mix36": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771094288%3Fsecret_token%3Ds-8y29y&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
 
-    "mix37": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/778109995%3Fsecret_token%3Ds-crIul&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+    "mix37": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/778109995%3Fsecret_token%3Ds-crIul&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix38": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/898224688%3Fsecret_token%3Ds-xDwRdWKZIG0&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+
+    "mix39": "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/898904404%3Fsecret_token%3Ds-8QzXRcOizA9&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+    
     
 }

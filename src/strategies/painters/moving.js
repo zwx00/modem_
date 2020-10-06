@@ -55,7 +55,7 @@ class MovingSpritePainter {
 
       setTimeout(() => {
         this.clicked = false;
-      }, 900);
+      }, 800);
     }
 
     function onDragEnd () {

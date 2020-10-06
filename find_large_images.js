@@ -35,7 +35,7 @@ var JimpPromise = (fName) => new Promise((resolve, reject) => {
       for (const picture of (await pictures).filter(f => (f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg')))) {
         try {
           const jImage = await JimpPromise(path.join('src/assets', mix.name, layer.name, picture));
-          if (jImage.bitmap.width * jImage.bitmap.height > 11417641) {
+          if (jImage.bitmap.width > 4096 || jImage.bitmap.height > 4096) {
             console.log(chalk.red(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is too large`));
           } else {
             // console.log(chalk.green(`:: ${path.join('src/assets', mix.name, layer.name, picture)} is ok large`))

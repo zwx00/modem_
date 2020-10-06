@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { renderPage } from './index.js';
 
-const MIX_COUNT = 36;
+const MIX_COUNT = 37;
 
 function changeMix(difference) {
   if (window.location.hash !== '') {
@@ -46,7 +46,8 @@ const constructTextEntry = (textContent) => {
 };
 
 
-const initSwitcher = (app) => {
+  const initSwitcher = (app, mixName) => {
+    if (mixName !== 'mix1000'){
   const fwdButton = constructTextEntry('>');
 
   const bwButton = constructTextEntry('<');
@@ -67,6 +68,7 @@ const initSwitcher = (app) => {
   fwdButton.on("click", changeMixFwd);
   bwButton.on("click", changeMixBw);
 }
+};
 
 export {
   initSwitcher
