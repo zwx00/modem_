@@ -46,28 +46,30 @@ const constructTextEntry = (textContent) => {
 };
 
 
-  const initSwitcher = (app, mixName) => {
-    if (mixName !== 'mix1000'){
-  const fwdButton = constructTextEntry('>');
+const initSwitcher = (app, mixName) => {
+  if (mixName !== "mix1000") {
+    const fwdButton = constructTextEntry('>');
 
-  const bwButton = constructTextEntry('<');
-  fwdButton.zIndex = 1200
-  bwButton.zIndex = 1200;
-  bwButton.x = window.innerWidth - 31;
-  bwButton.y = window.innerHeight - 80;
-  fwdButton.x = window.innerWidth - 31;
-  fwdButton.y = window.innerHeight - 160;
-  app.stage.addChild(fwdButton, bwButton);
+    const bwButton = constructTextEntry('<');
+    fwdButton.zIndex = 1200
+    bwButton.zIndex = 1200;
+    bwButton.x = window.innerWidth - 31;
+    bwButton.y = window.innerHeight - 80;
+    fwdButton.x = window.innerWidth - 31;
+    fwdButton.y = window.innerHeight - 160;
+    app.stage.addChild(fwdButton, bwButton);
 
-  function changeMixFwd() {
-    changeMix(1);
+    function changeMixFwd() {
+      changeMix(1);
+    }
+    function changeMixBw() {
+      changeMix(-1);
+    }
+    fwdButton.on("click", changeMixFwd);
+    bwButton.on("click", changeMixBw);
+  } else {
+    console.log("tu ni gumbov")
   }
-  function changeMixBw() {
-    changeMix(-1);
-  }
-  fwdButton.on("click", changeMixFwd);
-  bwButton.on("click", changeMixBw);
-}
 };
 
 export {

@@ -65,9 +65,9 @@ const renderPage = () => {
     ]);
 
     const mixName = window.location.hash.replace('#', '');
-    console.log(mixName);
+    console.log(mixName + " to je mixname in tle ni gumbov");
       
-    Switcher.initSwitcher(app);
+    Switcher.initSwitcher(app, mixName);
     /* routing ... */
     if (window.location.hash === '') {
       window.location.hash = `#mix${MIX_COUNT}`;
