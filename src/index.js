@@ -8,7 +8,7 @@ import _ from 'lodash';
 import * as Soundcloud from './soundcloud.js';
 import * as Switcher from './switcher.js';
 
-const MIX_COUNT = 37;
+const MIX_COUNT = 38;
 
 PIXI.utils.sayHello();
 
