@@ -6,7 +6,12 @@ const randomElement = (arr, exclude = []) => {
     return arr[0];
   }
 
-  let candidate;
+  if (arr.length == exclude.length) {
+    return null;
+  }
+
+  let candidate = undefined;
+
   while (candidate === undefined || exclude.includes(candidate.filename)) {
     const selectedIndex = Math.floor(Math.random() * arr.length);
     candidate = arr[selectedIndex];
@@ -23,8 +28,10 @@ const samplesLayerRenderer = async function (fileNames, container, rootStage) {
 
     const selectedFile = randomElement(fileNames, painted);
 
-    Framework.paintSprite.bind(this)(selectedFile, container, rootStage);
-    painted.push(selectedFile.filename);
+    if (selectedFile) {
+      Framework.paintSprite.bind(this)(selectedFile, container, rootStage);
+      painted.push(selectedFile.filename);
+    }
 
     if (painted.length > 13) {
       const randomChild = randomElement(container.children);
