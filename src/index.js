@@ -57,6 +57,7 @@ const renderPage = () => {
   fetch(
     `${IMAGE_HOST}/assets/asset-data.json`
   ).then(response => response.json()).then(AssetData => {
+
     app.stage.removeChild(backgroundContainer);
     backgroundContainer = new PIXI.Container();
     backgroundContainer.sortableChildren = true;
@@ -64,13 +65,13 @@ const renderPage = () => {
     renderContainers.menu = Menu.renderMenu([
     ]);
 
-    const mixName = window.location.hash.replace('#', '');
-    console.log(mixName + " to je mixname in tle ni gumbov");
-      
+    let mixName = window.location.hash.replace('#', '');
+
     Switcher.initSwitcher(app, mixName);
     /* routing ... */
     if (window.location.hash === '') {
       window.location.hash = `#mix${MIX_COUNT}`;
+      mixName = `mix${MIX_COUNT}`
     }
 
     const PageRenderer = MixCodeFactory.getMixCode(AssetData, mixName);
@@ -116,5 +117,6 @@ window.onresize = () => {
 };
 
 export {
-  renderPage
+  renderPage,
+  MIX_COUNT
 };

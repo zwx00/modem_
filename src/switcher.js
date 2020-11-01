@@ -1,7 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { renderPage } from './index.js';
-
-const MIX_COUNT = 37;
+import { renderPage, MIX_COUNT } from './index.js';
 
 function changeMix(difference) {
   if (window.location.hash !== '') {
@@ -68,7 +66,7 @@ const initSwitcher = (app, mixName) => {
     fwdButton.on("click", changeMixFwd);
     bwButton.on("click", changeMixBw);
   } else {
-    console.log("tu ni gumbov")
+    console.log(":: no buttons here")
   }
 };
 
