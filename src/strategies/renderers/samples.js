@@ -33,7 +33,7 @@ const samplesLayerRenderer = async function (fileNames, container, rootStage) {
       painted.push(selectedFile.filename);
     }
 
-    if (painted.length > 13) {
+    if (container.children > 13) {
       const randomChild = randomElement(container.children);
 
       container.removeChild(randomChild);
